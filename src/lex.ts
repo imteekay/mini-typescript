@@ -11,15 +11,18 @@ export function lex(s: string): Lexer {
   let pos = 0;
   let text = '';
   let token = Token.BOF;
+
   return {
     scan,
     token: () => token,
     pos: () => pos,
     text: () => text,
   };
+
   function scan() {
     scanForward((c) => /[ \t\b\n]/.test(c));
     const start = pos;
+
     if (pos === s.length) {
       token = Token.EOF;
     } else if (/[0-9]/.test(s.charAt(pos))) {
@@ -51,6 +54,7 @@ export function lex(s: string): Lexer {
       }
     }
   }
+
   function scanForward(pred: (x: string) => boolean) {
     while (pos < s.length && pred(s.charAt(pos))) pos++;
   }
@@ -60,6 +64,7 @@ export function lexAll(s: string) {
   const lexer = lex(s);
   let tokens = [];
   let t;
+
   while (true) {
     lexer.scan();
     t = lexer.token();

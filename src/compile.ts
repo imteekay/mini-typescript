@@ -7,9 +7,9 @@ import { check } from './check';
 import { transform } from './transform';
 import { emit } from './emit';
 
-export function compile(s: string): [Module, Error[], string] {
+export function compile(sourceCode: string): [Module, Error[], string] {
   errors.clear();
-  const tree = parse(lex(s));
+  const tree = parse(lex(sourceCode));
   bind(tree);
   check(tree);
   const js = emit(transform(tree.statements));
