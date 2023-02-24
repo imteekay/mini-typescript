@@ -1,1 +1,1 @@
-var s: string = 1
+var s: string = 1;

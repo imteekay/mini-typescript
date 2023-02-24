@@ -1,12 +1,10 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "strict": true,
-        "target": "esnext",
-        "lib": ["es2020", "dom"],
-        "outDir": "built"
-    },
-    "include": [
-        "src"
-    ]
+  "compilerOptions": {
+    "module": "commonjs",
+    "strict": true,
+    "target": "esnext",
+    "lib": ["es2020", "dom"],
+    "outDir": "built"
+  },
+  "include": ["src"]
 }
