@@ -45,6 +45,7 @@ function sum(ns: number[]) {
   for (const n of ns) total += n;
   return total;
 }
+
 const lexTests = {
   basicLex: 'x',
   firstLex: ' 1200Hello    World1! 14d',
