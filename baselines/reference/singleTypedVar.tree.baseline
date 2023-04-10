@@ -22,6 +22,9 @@
         "kind": "Literal",
         "value": 1
       }
+    },
+    {
+      "kind": "EmptyStatement"
     }
   ]
 }

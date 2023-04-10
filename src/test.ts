@@ -67,6 +67,14 @@ let lexResult = sum(
   ),
 );
 
+// const [tree, errors, js] = compile(
+//   fs.readFileSync('tests/' + 'emptyStatement.ts', 'utf8'),
+// );
+// const name = 'emptyStatement.ts'.slice(0, 'emptyStatement.ts'.length - 3);
+// test('tree', name, displayModule(tree)) +
+//   test('errors', name, errors) +
+//   test('js', name, js);
+
 let compileResult = sum(
   fs.readdirSync('tests').map((file) => {
     const [tree, errors, js] = compile(

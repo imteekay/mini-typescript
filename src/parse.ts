@@ -70,7 +70,7 @@ export function parse(lexer: Lexer): Module {
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
     } else if (tryParseTokens([Token.EOF, Token.Semicolon])) {
-      return { kind: Node.EmptyStatement, pos };
+      return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
   }

@@ -79,7 +79,7 @@ export type TypeAlias = Location & {
   typename: Identifier;
 };
 
-export type EmptyStatement = Location & {
+export type EmptyStatement = {
   kind: Node.EmptyStatement;
 };
 

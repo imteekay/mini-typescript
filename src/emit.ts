@@ -1,7 +1,7 @@
 import { Statement, Node, Expression } from './types';
 
 export function emit(statements: Statement[]) {
-  return statements.map(emitStatement).join(';\n');
+  return statements.filter(Boolean).map(emitStatement).join(';\n');
 }
 
 function emitStatement(statement: Statement): string {
@@ -15,6 +15,8 @@ function emitStatement(statement: Statement): string {
       )}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
+    case Node.EmptyStatement:
+      return '';
   }
 }
 
