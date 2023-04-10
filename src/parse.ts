@@ -69,8 +69,18 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
+    } else if (tryParseTokens([Token.EOF, Token.Semicolon])) {
+      return { kind: Node.EmptyStatement, pos };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
+  }
+
+  function tryParseTokens(expectedTokens: Token[]) {
+    const ok = expectedTokens.includes(lexer.token());
+    if (ok) {
+      lexer.scan();
+    }
+    return ok;
   }
 
   function tryParseToken(expected: Token) {
