@@ -9,6 +9,8 @@ import {
 } from './types';
 import { error } from './error';
 
+const emptyTokens = [Token.EOF, Token.Semicolon];
+
 export function parse(lexer: Lexer): Module {
   lexer.scan();
   return parseModule();
@@ -69,18 +71,10 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
-    } else if (tryParseTokens([Token.EOF, Token.Semicolon])) {
+    } else if (emptyTokens.includes(lexer.token())) {
       return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
-  }
-
-  function tryParseTokens(expectedTokens: Token[]) {
-    const ok = expectedTokens.includes(lexer.token());
-    if (ok) {
-      lexer.scan();
-    }
-    return ok;
   }
 
   function tryParseToken(expected: Token) {
