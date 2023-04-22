@@ -33,20 +33,20 @@ npm run mtsc ./tests/singleVar.ts
 
 ## Exercises
 
-- Add EmptyStatement.
-- Make semicolon a statement ender, not statement separator.
+- [x] Add EmptyStatement.
+- [ ] Make semicolon a statement ender, not statement separator.
   - Hint: You'll need a predicate to peek at the next token and decide if it's the start of an element.
   - Bonus: Switch from semicolon to newline as statement ender.
-- Add string literals.
-- Add let.
+- [ ] Add string literals.
+- [ ] Add let.
   - Then add use-before-declaration errors in the checker.
   - Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
-- Allow var to have multiple declarations.
+- [ ] Allow var to have multiple declarations.
   - You'll need to convert a Symbol's declaration into a list.
   - Check that all declarations have the same type.
-- Add type aliases.
+- [ ] Add type aliases.
   - You'll need to convert a Symbol's declaration into a list.
   - Name resolution will need to search a symbol's declarations to see whether it has a type declaration.
-- Add an ES5 transformer that converts let -> var.
-- Add function declarations and function calls.
-- Add arrow functions with an appropriate transform in ES5.
+- [ ] Add an ES5 transformer that converts let -> var.
+- [ ] Add function declarations and function calls.
+- [ ] Add arrow functions with an appropriate transform in ES5.
