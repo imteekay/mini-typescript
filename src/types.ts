@@ -1,18 +1,19 @@
 export enum Token {
-  Function,
-  Var,
-  Type,
-  Return,
-  Equals,
-  Literal,
-  Identifier,
-  Newline,
-  Semicolon,
-  Colon,
-  Whitespace,
-  Unknown,
-  BOF,
-  EOF,
+  Function = 'Function',
+  Var = 'Var',
+  Type = 'Type',
+  Return = 'Return',
+  Equals = 'Equals',
+  Literal = 'Literal',
+  Identifier = 'Identifier',
+  Newline = 'Newline',
+  Semicolon = 'Semicolon',
+  Colon = 'Colon',
+  Whitespace = 'Whitespace',
+  String = 'String',
+  Unknown = 'Unknown',
+  BOF = 'BOF',
+  EOF = 'EOF',
 }
 
 export type Lexer = {
@@ -49,7 +50,7 @@ export type Identifier = Location & {
 
 export type Literal = Location & {
   kind: Node.Literal;
-  value: number;
+  value: number | string;
 };
 
 export type Assignment = Location & {
