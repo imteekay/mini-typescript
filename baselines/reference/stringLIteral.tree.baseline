@@ -35,6 +35,9 @@
         "kind": "Literal",
         "value": "\"doubleQuote\""
       }
+    },
+    {
+      "kind": "EmptyStatement"
     }
   ]
 }
