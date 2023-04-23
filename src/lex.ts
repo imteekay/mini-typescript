@@ -41,10 +41,9 @@ export function lex(s: string): Lexer {
           ? keywords[text as keyof typeof keywords]
           : Token.Identifier;
     } else if (['"', "'"].includes(s.charAt(pos))) {
-      scanForward((c) => /[_a-zA-Z0-9]/.test(c));
+      scanForward((c) => /[_a-zA-Z0-9']/.test(c));
       text = s.slice(start, pos);
       token = Token.String;
-      pos++;
     } else {
       pos++;
       switch (s.charAt(pos - 1)) {
