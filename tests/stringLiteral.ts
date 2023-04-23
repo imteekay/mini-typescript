@@ -1,1 +1,2 @@
-var string = 'string';
+var singleQuote = 'singleQuote';
+var doubleQuote = "doubleQuote";
