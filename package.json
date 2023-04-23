@@ -6,6 +6,7 @@
   "scripts": {
     "build": "tsc",
     "test": "rm baselines/local/*; tsc && node built/test.js",
+    "test:file": "tsc && node built/testFile.js",
     "accept": "mv baselines/local/* baselines/reference/",
     "mtsc": "node built/index.js"
   },
