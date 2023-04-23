@@ -1,0 +1,40 @@
+{
+  "locals": {
+    "singleQuote": [
+      {
+        "kind": "Var",
+        "pos": 3
+      }
+    ],
+    "doubleQuote": [
+      {
+        "kind": "Var",
+        "pos": 36
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "singleQuote"
+      },
+      "init": {
+        "kind": "Literal",
+        "value": "'singleQuote'"
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "doubleQuote"
+      },
+      "init": {
+        "kind": "Literal",
+        "value": "\"doubleQuote\""
+      }
+    }
+  ]
+}
