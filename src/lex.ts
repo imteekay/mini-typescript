@@ -20,6 +20,10 @@ export function lex(s: string): Lexer {
   };
 
   function scan() {
+    // scan forward all
+    // \t - tabs
+    // \b - empty strings at the beginning and end of a word
+    // \n - newline char
     scanForward((c) => /[ \t\b\n]/.test(c));
     const start = pos;
 
