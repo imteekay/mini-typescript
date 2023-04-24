@@ -22,6 +22,10 @@
 ## Parser
 
 - Use the lexer to walkthrough the tokens and create the AST nodes
+- Parse statements
+  - Var statements
+  - type statements
+  - expressions
 - Var AST node
   - name -> identifier
   - typename -> type definition (if there's no `Colon` token, the `typename` should be `undefined`)
