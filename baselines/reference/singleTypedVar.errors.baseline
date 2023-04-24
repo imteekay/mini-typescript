@@ -2,5 +2,9 @@
   {
     "pos": 17,
     "message": "Cannot assign initialiser of type 'number' to variable with declared type 'string'."
+  },
+  {
+    "pos": 41,
+    "message": "Cannot assign initialiser of type 'string' to variable with declared type 'number'."
   }
 ]

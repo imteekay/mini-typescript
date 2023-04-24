@@ -22,6 +22,21 @@
         "kind": "Literal",
         "value": 1
       }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "n"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "number"
+      },
+      "init": {
+        "kind": "Literal",
+        "value": "'test'"
+      }
     }
   ]
 }
