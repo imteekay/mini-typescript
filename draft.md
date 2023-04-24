@@ -1,5 +1,12 @@
 # Learnings
 
+## How to debug
+
+- Use [`astexplorer`](https://astexplorer.net) to understand tokens/AST
+- Read the [ECMAScript specification](https://tc39.es/ecma262/multipage/#sec-intro)
+- Run `npm run test:file test-filename.ts` to debug only one test at a time. Replace the `test-filename.ts` with the test file name you want to test
+- Add the baselines and run `npm run test` and compare the local with the references
+
 ## Lexer
 
 - scan forward all
