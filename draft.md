@@ -19,6 +19,15 @@
 - scan tokens like `Equals`, `Semicolon`, `Colon`, etc
 - if not in the list, it's a `Unknown` token
 
+## Parser
+
+- Use the lexer to walkthrough the tokens and create the AST nodes
+- Var AST node
+  - name -> identifier
+  - typename -> type definition (if there's no `Colon` token, the `typename` should be `undefined`)
+  - init -> the value
+  - pos -> position
+
 ## Checker
 
 - when it's a `var` node
