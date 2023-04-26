@@ -22,7 +22,7 @@
       },
       "init": {
         "kind": "Literal",
-        "value": "'singleQuote'"
+        "value": "singleQuote"
       }
     },
     {
@@ -33,11 +33,15 @@
       },
       "init": {
         "kind": "Literal",
-        "value": "\"doubleQuote\""
+        "value": "double'Quote"
       }
     },
     {
-      "kind": "EmptyStatement"
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "(missing)"
+      }
     }
   ]
 }

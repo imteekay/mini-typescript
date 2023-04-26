@@ -1,2 +1,2 @@
 var singleQuote = 'singleQuote';
-var doubleQuote = "doubleQuote";
+var doubleQuote = 'double\'Quote';

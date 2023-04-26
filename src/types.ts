@@ -94,3 +94,13 @@ export type Module = {
 };
 
 export type Type = { id: string };
+
+export enum CharCodes {
+  b = 98,
+  t = 116,
+  n = 110,
+  r = 114,
+  singleQuote = 39,
+  doubleQuote = 34,
+  backslash = 92,
+}
