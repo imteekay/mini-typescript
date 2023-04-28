@@ -1,1 +1,1 @@
-"var singleQuote = 'singleQuote';\nvar doubleQuote = \"doubleQuote\""
+"var singleQuote = 'singleQuote';\nvar doubleQuote = \"doubleQuote\";\nvar escapedSingleQuote = 'escapedSingle\\'Quote';\nvar escapedDoubleQuote = \"escapedDouble\\\"Quote\";\n(missing)"
