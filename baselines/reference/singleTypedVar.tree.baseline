@@ -5,6 +5,12 @@
         "kind": "Var",
         "pos": 3
       }
+    ],
+    "n": [
+      {
+        "kind": "Var",
+        "pos": 22
+      }
     ]
   },
   "statements": [
@@ -34,8 +40,16 @@
         "text": "number"
       },
       "init": {
-        "kind": "Literal",
-        "value": "'test'"
+        "kind": "StringLiteral",
+        "value": "test",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "(missing)"
       }
     }
   ]
