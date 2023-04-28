@@ -1,7 +1,7 @@
 import { Statement, Node, Expression } from './types';
 
 export function emit(statements: Statement[]) {
-  return statements.filter(Boolean).map(emitStatement).join(';\n');
+  return statements.map(emitStatement).join(';\n');
 }
 
 function emitStatement(statement: Statement): string {
