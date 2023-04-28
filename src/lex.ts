@@ -118,7 +118,7 @@ export function lex(s: string): Lexer {
       case CharCodes.doubleQuote:
         return '"';
       default:
-        return '';
+        return String.fromCharCode(char);
     }
   }
 }
