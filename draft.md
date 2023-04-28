@@ -2,9 +2,10 @@
 
 ## How to debug
 
-- Use [`astexplorer`](https://astexplorer.net) to understand tokens/AST
-- Read the [ECMAScript specification](https://tc39.es/ecma262/multipage/#sec-intro)
-- Use the [ts playground](https://www.typescriptlang.org/play) to see the JS output
+- Use the [`astexplorer`](https://astexplorer.net) to understand tokens/AST
+- Use the [`TS AST Viewer`](https://ts-ast-viewer.com) to understand the AST nodes (check text, symbols/declarations)
+- Read the [`ECMAScript specification`](https://tc39.es/ecma262/multipage/#sec-intro)
+- Use the [`ts playground`](https://www.typescriptlang.org/play) to see the JS output
 - Run `npm run test:file test-filename.ts` to debug only one test at a time. Replace the `test-filename.ts` with the test file name you want to test
 - Add the baselines and run `npm run test` and compare the local with the references
 
