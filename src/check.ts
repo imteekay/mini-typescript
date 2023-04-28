@@ -13,7 +13,7 @@ import { resolve } from './bind';
 const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
 const errorType: Type = { id: 'error' };
-const emptyType: Type = { id: 'empty' };
+const empty: Type = { id: 'empty' };
 
 function typeToString(type: Type) {
   return type.id;
@@ -43,7 +43,7 @@ export function check(module: Module) {
       case Node.TypeAlias:
         return checkType(statement.typename);
       case Node.EmptyStatement:
-        return emptyType;
+        return empty;
     }
   }
 
