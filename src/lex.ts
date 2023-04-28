@@ -11,12 +11,14 @@ export function lex(s: string): Lexer {
   let pos = 0;
   let text = '';
   let token = Token.BOF;
+  let firstChar: string;
 
   return {
     scan,
     token: () => token,
     pos: () => pos,
     text: () => text,
+    isSingleQuote: () => firstChar === "'",
   };
 
   function scan() {
@@ -41,6 +43,7 @@ export function lex(s: string): Lexer {
           ? keywords[text as keyof typeof keywords]
           : Token.Identifier;
     } else if (['"', "'"].includes(s.charAt(pos))) {
+      firstChar = s.charAt(pos);
       text = scanString();
       token = Token.String;
     } else {
@@ -114,9 +117,11 @@ export function lex(s: string): Lexer {
       case CharCodes.r:
         return '\r';
       case CharCodes.singleQuote:
-        return "'";
+        // prettier-ignore
+        return "\'";
       case CharCodes.doubleQuote:
-        return '"';
+        // prettier-ignore
+        return '\"';
       default:
         return String.fromCharCode(char);
     }

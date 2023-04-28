@@ -37,7 +37,12 @@ export function parse(lexer: Lexer): Module {
     } else if (tryParseToken(Token.Literal)) {
       return { kind: Node.Literal, value: +lexer.text(), pos };
     } else if (tryParseToken(Token.String)) {
-      return { kind: Node.Literal, value: lexer.text(), pos };
+      return {
+        kind: Node.StringLiteral,
+        value: lexer.text(),
+        pos,
+        isSingleQuote: lexer.isSingleQuote(),
+      };
     }
     error(
       pos,

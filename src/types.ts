@@ -21,6 +21,7 @@ export type Lexer = {
   token(): Token;
   pos(): number;
   text(): string;
+  isSingleQuote(): boolean;
 };
 
 export enum Node {
@@ -30,6 +31,7 @@ export enum Node {
   ExpressionStatement,
   Var,
   TypeAlias,
+  StringLiteral,
 }
 
 export type Error = {
@@ -41,7 +43,7 @@ export interface Location {
   pos: number;
 }
 
-export type Expression = Identifier | Literal | Assignment;
+export type Expression = Identifier | Literal | Assignment | StringLiteral;
 
 export type Identifier = Location & {
   kind: Node.Identifier;
@@ -50,7 +52,13 @@ export type Identifier = Location & {
 
 export type Literal = Location & {
   kind: Node.Literal;
-  value: number | string;
+  value: number;
+};
+
+export type StringLiteral = Location & {
+  kind: Node.StringLiteral;
+  value: string;
+  isSingleQuote: boolean;
 };
 
 export type Assignment = Location & {
