@@ -34,6 +34,145 @@
   - init -> the value
   - pos -> position
 
+### AST nodes
+
+#### Identifier
+
+Source code: `s;`
+
+```json
+{
+  "kind": "Identifier",
+  "text": "s"
+}
+```
+
+#### Literal
+
+Source code: `1;`
+
+```json
+{
+  "kind": "Literal",
+  "value": 1
+}
+```
+
+#### Assignment
+
+Source code: `example = 2;`
+
+```json
+{
+  "kind": "Assignment",
+  "name": {
+    "kind": "Identifier",
+    "text": "example"
+  },
+  "value": {
+    "kind": "Literal",
+    "value": 2
+  }
+}
+```
+
+#### ExpressionStatement
+
+Source code: `example = 2;`
+
+```json
+{
+  "kind": "ExpressionStatement",
+  "expr": {
+    "kind": "Assignment",
+    "name": {
+      "kind": "Identifier",
+      "text": "arthurTwoShedsJackson"
+    },
+    "value": {
+      "kind": "Literal",
+      "value": 2
+    }
+  }
+}
+```
+
+#### Var
+
+Source code: `var s: string = 1;`
+
+```json
+{
+  "kind": "Var",
+  "name": {
+    "kind": "Identifier",
+    "text": "s"
+  },
+  "typename": {
+    "kind": "Identifier",
+    "text": "string"
+  },
+  "init": {
+    "kind": "Literal",
+    "value": 1
+  }
+}
+```
+
+Source code: `var s = 1;`
+
+```json
+{
+  "kind": "Var",
+  "name": {
+    "kind": "Identifier",
+    "text": "s"
+  },
+  "init": {
+    "kind": "Literal",
+    "value": 1
+  }
+}
+```
+
+#### TypeAlias
+
+Source code: `type Int = number;`
+
+```json
+{
+  "kind": "TypeAlias",
+  "name": {
+    "kind": "Identifier",
+    "text": "Int"
+  },
+  "typename": {
+    "kind": "Identifier",
+    "text": "number"
+  }
+}
+```
+
+Source code: `type Int = number; var int: Int = 10;`
+
+```json
+{
+  "kind": "Var",
+  "name": {
+    "kind": "Identifier",
+    "text": "int"
+  },
+  "typename": {
+    "kind": "Identifier",
+    "text": "Int"
+  },
+  "init": {
+    "kind": "Literal",
+    "value": 10
+  }
+}
+```
+
 ## Checker
 
 - `checkExpression`
