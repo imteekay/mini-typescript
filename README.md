@@ -50,3 +50,5 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add an ES5 transformer that converts let -> var.
 - [ ] Add function declarations and function calls.
 - [ ] Add arrow functions with an appropriate transform in ES5.
+- [ ] Add support for the lexer to report errors
+  - report unterminated string literal error
