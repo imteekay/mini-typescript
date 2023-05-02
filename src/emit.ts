@@ -41,7 +41,7 @@ function emitExpression(expression: Expression): string {
   switch (expression.kind) {
     case Node.Identifier:
       return expression.text;
-    case Node.Literal:
+    case Node.NumericLiteral:
       return '' + expression.value;
     case Node.StringLiteral:
       return expression.isSingleQuote
