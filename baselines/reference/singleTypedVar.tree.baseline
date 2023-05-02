@@ -5,6 +5,12 @@
         "kind": "Var",
         "pos": 3
       }
+    ],
+    "n": [
+      {
+        "kind": "Var",
+        "pos": 22
+      }
     ]
   },
   "statements": [
@@ -19,8 +25,24 @@
         "text": "string"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 1
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "n"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "number"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "test",
+        "isSingleQuote": true
       }
     },
     {

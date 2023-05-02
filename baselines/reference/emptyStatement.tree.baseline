@@ -25,7 +25,7 @@
         "text": "number"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 1
       }
     },
@@ -43,7 +43,7 @@
         "text": "number"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 2
       }
     },

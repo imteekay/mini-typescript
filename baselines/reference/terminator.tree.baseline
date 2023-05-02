@@ -27,7 +27,7 @@
         "text": "x"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 1
       }
     },
@@ -38,7 +38,7 @@
         "text": "y"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 2
       }
     },
@@ -49,7 +49,7 @@
         "text": "z"
       },
       "init": {
-        "kind": "Literal",
+        "kind": "NumericLiteral",
         "value": 3
       }
     },

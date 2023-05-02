@@ -4,12 +4,13 @@ export enum Token {
   Type = 'Type',
   Return = 'Return',
   Equals = 'Equals',
-  Literal = 'Literal',
+  NumericLiteral = 'NumericLiteral',
   Identifier = 'Identifier',
   Newline = 'Newline',
   Semicolon = 'Semicolon',
   Colon = 'Colon',
   Whitespace = 'Whitespace',
+  String = 'String',
   Unknown = 'Unknown',
   BOF = 'BOF',
   EOF = 'EOF',
@@ -20,15 +21,17 @@ export type Lexer = {
   token(): Token;
   pos(): number;
   text(): string;
+  isSingleQuote(): boolean;
 };
 
 export enum Node {
   Identifier,
-  Literal,
+  NumericLiteral,
   Assignment,
   ExpressionStatement,
   Var,
   TypeAlias,
+  StringLiteral,
   EmptyStatement,
   EndOfFile,
 }
@@ -42,16 +45,26 @@ export interface Location {
   pos: number;
 }
 
-export type Expression = Identifier | Literal | Assignment;
+export type Expression =
+  | Identifier
+  | NumericLiteral
+  | Assignment
+  | StringLiteral;
 
 export type Identifier = Location & {
   kind: Node.Identifier;
   text: string;
 };
 
-export type Literal = Location & {
-  kind: Node.Literal;
+export type NumericLiteral = Location & {
+  kind: Node.NumericLiteral;
   value: number;
+};
+
+export type StringLiteral = Location & {
+  kind: Node.StringLiteral;
+  value: string;
+  isSingleQuote: boolean;
 };
 
 export type Assignment = Location & {
@@ -108,3 +121,13 @@ export type Module = {
 };
 
 export type Type = { id: string };
+
+export enum CharCodes {
+  b = 98,
+  t = 116,
+  n = 110,
+  r = 114,
+  singleQuote = 39,
+  doubleQuote = 34,
+  backslash = 92,
+}
