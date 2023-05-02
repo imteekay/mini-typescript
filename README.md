@@ -52,4 +52,4 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add arrow functions with an appropriate transform in ES5.
 - [ ] Add support for the lexer to report errors
   - report unterminated string literal error
-- [ ] Refactor: rename `Literal` to `NumericLiteral`
+- [x] Refactor: rename `Literal` to `NumericLiteral`

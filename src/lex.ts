@@ -34,7 +34,7 @@ export function lex(s: string): Lexer {
     } else if (/[0-9]/.test(s.charAt(pos))) {
       scanForward((c) => /[0-9]/.test(c));
       text = s.slice(start, pos);
-      token = Token.Literal;
+      token = Token.NumericLiteral;
     } else if (/[_a-zA-Z]/.test(s.charAt(pos))) {
       scanForward((c) => /[_a-zA-Z0-9]/.test(c));
       text = s.slice(start, pos);
@@ -140,7 +140,7 @@ export function lexAll(s: string) {
       case Token.EOF:
         return tokens;
       case Token.Identifier:
-      case Token.Literal:
+      case Token.NumericLiteral:
         tokens.push({ token: t, text: lexer.text() });
         break;
       default:

@@ -13,7 +13,7 @@
     },
     {
       "file": "src/types.ts",
-      "description": "`Expression` is a union of all the expression types. For mini-typescript, that's just `Identifier`, `Literal` and `Assignment`.\n\nThe real Typescript compiler doesn't have unions for all its types -- for many it uses interface inheritance instead. That's mostly for historical reasons, because discriminated unions weren't available until Typescript 2.0.",
+      "description": "`Expression` is a union of all the expression types. For mini-typescript, that's just `Identifier`, `NumericLiteral` and `Assignment`.\n\nThe real Typescript compiler doesn't have unions for all its types -- for many it uses interface inheritance instead. That's mostly for historical reasons, because discriminated unions weren't available until Typescript 2.0.",
       "line": 38
     },
     {

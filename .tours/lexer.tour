@@ -43,7 +43,7 @@
     },
     {
       "file": "src/lex.ts",
-      "description": "Then it checks for numbers -- mini-typescript only supports integers, so the regexes are simple.\nNote that `scan` sets both `text` and `token` for numbers.\nAlso, mini-typescript doesn't support string, boolean or bigint literals, so it just calls the number literal token `Literal`.",
+      "description": "Then it checks for numbers -- mini-typescript only supports integers, so the regexes are simple.\nNote that `scan` sets both `text` and `token` for numbers.\nAlso, mini-typescript doesn't support string, boolean or bigint literals, so it just calls the number literal token `NumericLiteral`.",
       "line": 24
     },
     {

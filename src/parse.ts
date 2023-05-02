@@ -36,8 +36,8 @@ export function parse(lexer: Lexer): Module {
     const pos = lexer.pos();
     if (tryParseToken(Token.Identifier)) {
       return { kind: Node.Identifier, text: lexer.text(), pos };
-    } else if (tryParseToken(Token.Literal)) {
-      return { kind: Node.Literal, value: +lexer.text(), pos };
+    } else if (tryParseToken(Token.NumericLiteral)) {
+      return { kind: Node.NumericLiteral, value: +lexer.text(), pos };
     } else if (tryParseToken(Token.String)) {
       return {
         kind: Node.StringLiteral,
