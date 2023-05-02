@@ -14,9 +14,10 @@ export function parse(lexer: Lexer): Module {
   return parseModule();
 
   function parseModule(): Module {
-    const statements = parseStatements(parseStatement);
-    parseExpected(Token.EOF);
-    return { statements, locals: new Map() };
+    return {
+      statements: parseStatements(parseStatement),
+      locals: new Map(),
+    };
   }
 
   function parseExpression(): Expression {
