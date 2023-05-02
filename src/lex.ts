@@ -20,11 +20,7 @@ export function lex(s: string): Lexer {
   };
 
   function scan() {
-    // scan forward all
-    // \t - tabs
-    // \b - empty strings at the beginning and end of a word
-    // \n - newline char
-    scanForward((c) => /[ \t\b\n]/.test(c));
+    scanForward(isEmptyStrings);
     const start = pos;
 
     if (pos === s.length) {
@@ -57,6 +53,14 @@ export function lex(s: string): Lexer {
           break;
       }
     }
+  }
+
+  function isEmptyStrings(c: string) {
+    // scan forward all
+    // \t - tabs
+    // \b - empty strings at the beginning and end of a word
+    // \n - newline char
+    return /[ \t\b\n]/.test(c);
   }
 
   function scanForward(pred: (x: string) => boolean) {
