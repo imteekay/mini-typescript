@@ -16,6 +16,8 @@ function typescript(statements: Statement[]) {
         return [{ ...statement, typename: undefined }];
       case Node.TypeAlias:
         return [];
+      case Node.EmptyStatement:
+        return [];
     }
   }
 }

@@ -36,6 +36,9 @@
           "value": 2
         }
       }
+    },
+    {
+      "kind": "EmptyStatement"
     }
   ]
 }

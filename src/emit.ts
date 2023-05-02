@@ -15,6 +15,8 @@ function emitStatement(statement: Statement): string {
       )}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
+    case Node.EmptyStatement:
+      return '';
   }
 }
 
