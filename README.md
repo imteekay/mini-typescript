@@ -37,7 +37,7 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Make semicolon a statement ender, not statement separator.
   - Hint: You'll need a predicate to peek at the next token and decide if it's the start of an element.
   - Bonus: Switch from semicolon to newline as statement ender.
-- [ ] Add string literals.
+- [x] Add string literals.
 - [ ] Add let.
   - Then add use-before-declaration errors in the checker.
   - Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
@@ -50,3 +50,6 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add an ES5 transformer that converts let -> var.
 - [ ] Add function declarations and function calls.
 - [ ] Add arrow functions with an appropriate transform in ES5.
+- [ ] Add support for the lexer to report errors
+  - report unterminated string literal error
+- [ ] Refactor: rename `Literal` to `NumericLiteral`

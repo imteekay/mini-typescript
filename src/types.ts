@@ -10,6 +10,7 @@ export enum Token {
   Semicolon = 'Semicolon',
   Colon = 'Colon',
   Whitespace = 'Whitespace',
+  String = 'String',
   Unknown = 'Unknown',
   BOF = 'BOF',
   EOF = 'EOF',
@@ -20,6 +21,7 @@ export type Lexer = {
   token(): Token;
   pos(): number;
   text(): string;
+  isSingleQuote(): boolean;
 };
 
 export enum Node {
@@ -29,6 +31,7 @@ export enum Node {
   ExpressionStatement,
   Var,
   TypeAlias,
+  StringLiteral,
   EmptyStatement,
 }
 
@@ -41,7 +44,7 @@ export interface Location {
   pos: number;
 }
 
-export type Expression = Identifier | Literal | Assignment;
+export type Expression = Identifier | Literal | Assignment | StringLiteral;
 
 export type Identifier = Location & {
   kind: Node.Identifier;
@@ -51,6 +54,12 @@ export type Identifier = Location & {
 export type Literal = Location & {
   kind: Node.Literal;
   value: number;
+};
+
+export type StringLiteral = Location & {
+  kind: Node.StringLiteral;
+  value: string;
+  isSingleQuote: boolean;
 };
 
 export type Assignment = Location & {
@@ -98,3 +107,13 @@ export type Module = {
 };
 
 export type Type = { id: string };
+
+export enum CharCodes {
+  b = 98,
+  t = 116,
+  n = 110,
+  r = 114,
+  singleQuote = 39,
+  doubleQuote = 34,
+  backslash = 92,
+}

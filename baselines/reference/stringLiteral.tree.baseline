@@ -1,0 +1,153 @@
+{
+  "locals": {
+    "singleQuote": [
+      {
+        "kind": "Var",
+        "pos": 3
+      }
+    ],
+    "doubleQuote": [
+      {
+        "kind": "Var",
+        "pos": 36
+      }
+    ],
+    "escapedSingleQuote": [
+      {
+        "kind": "Var",
+        "pos": 69
+      }
+    ],
+    "escapedDoubleQuote": [
+      {
+        "kind": "Var",
+        "pos": 118
+      }
+    ],
+    "escapedB": [
+      {
+        "kind": "Var",
+        "pos": 167
+      }
+    ],
+    "escapedT": [
+      {
+        "kind": "Var",
+        "pos": 196
+      }
+    ],
+    "escapedN": [
+      {
+        "kind": "Var",
+        "pos": 225
+      }
+    ],
+    "escapedR": [
+      {
+        "kind": "Var",
+        "pos": 254
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "singleQuote"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "singleQuote",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "doubleQuote"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "doubleQuote",
+        "isSingleQuote": false
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedSingleQuote"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escapedSingle'Quote",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedDoubleQuote"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escapedDouble\"Quote",
+        "isSingleQuote": false
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedB"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escaped\nB",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedT"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escaped\nT",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedN"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escaped\nN",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "escapedR"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "escaped\nR",
+        "isSingleQuote": true
+      }
+    },
+    {
+      "kind": "EmptyStatement"
+    }
+  ]
+}

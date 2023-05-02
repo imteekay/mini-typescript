@@ -38,6 +38,13 @@ export function parse(lexer: Lexer): Module {
       return { kind: Node.Identifier, text: lexer.text(), pos };
     } else if (tryParseToken(Token.Literal)) {
       return { kind: Node.Literal, value: +lexer.text(), pos };
+    } else if (tryParseToken(Token.String)) {
+      return {
+        kind: Node.StringLiteral,
+        value: lexer.text(),
+        pos,
+        isSingleQuote: lexer.isSingleQuote(),
+      };
     }
     error(
       pos,

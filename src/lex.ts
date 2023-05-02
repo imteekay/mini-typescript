@@ -1,4 +1,4 @@
-import { Token, Lexer } from './types';
+import { Token, Lexer, CharCodes } from './types';
 
 const keywords = {
   function: Token.Function,
@@ -11,12 +11,14 @@ export function lex(s: string): Lexer {
   let pos = 0;
   let text = '';
   let token = Token.BOF;
+  let firstChar: string;
 
   return {
     scan,
     token: () => token,
     pos: () => pos,
     text: () => text,
+    isSingleQuote: () => firstChar === "'",
   };
 
   function scan() {
@@ -40,6 +42,10 @@ export function lex(s: string): Lexer {
         text in keywords
           ? keywords[text as keyof typeof keywords]
           : Token.Identifier;
+    } else if (['"', "'"].includes(s.charAt(pos))) {
+      firstChar = s.charAt(pos);
+      text = scanString();
+      token = Token.String;
     } else {
       pos++;
       switch (s.charAt(pos - 1)) {
@@ -61,6 +67,64 @@ export function lex(s: string): Lexer {
 
   function scanForward(pred: (x: string) => boolean) {
     while (pos < s.length && pred(s.charAt(pos))) pos++;
+  }
+
+  function scanString() {
+    const quote = s.charCodeAt(pos);
+    pos++;
+
+    let stringValue = '';
+    let start = pos;
+
+    while (true) {
+      if (pos >= s.length) {
+        // report unterminated string literal error
+      }
+
+      const char = s.charCodeAt(pos);
+
+      if (char === quote) {
+        stringValue += s.slice(start, pos);
+        pos++;
+        break;
+      }
+
+      if (char === CharCodes.backslash) {
+        stringValue += s.slice(start, pos);
+        stringValue += scanEscapeSequence();
+        start = pos;
+        continue;
+      }
+
+      pos++;
+    }
+
+    return stringValue;
+  }
+
+  function scanEscapeSequence() {
+    pos++;
+    const char = s.charCodeAt(pos);
+    pos++;
+
+    switch (char) {
+      case CharCodes.b:
+        return '\b';
+      case CharCodes.t:
+        return '\t';
+      case CharCodes.n:
+        return '\n';
+      case CharCodes.r:
+        return '\r';
+      case CharCodes.singleQuote:
+        // prettier-ignore
+        return "\'";
+      case CharCodes.doubleQuote:
+        // prettier-ignore
+        return '\"';
+      default:
+        return String.fromCharCode(char);
+    }
   }
 }
 
