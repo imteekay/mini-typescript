@@ -38,7 +38,7 @@
       }
     },
     {
-      "kind": "EmptyStatement"
+      "kind": "EndOfFile"
     }
   ]
 }
