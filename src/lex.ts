@@ -26,11 +26,11 @@ export function lex(s: string): Lexer {
     if (pos === s.length) {
       token = Token.EOF;
     } else if (/[0-9]/.test(s.charAt(pos))) {
-      scanForward((c) => /[0-9]/.test(c));
+      scanForward(isNumber);
       text = s.slice(start, pos);
       token = Token.Literal;
     } else if (/[_a-zA-Z]/.test(s.charAt(pos))) {
-      scanForward((c) => /[_a-zA-Z0-9]/.test(c));
+      scanForward(isAlphanumerical);
       text = s.slice(start, pos);
       token =
         text in keywords
@@ -61,6 +61,14 @@ export function lex(s: string): Lexer {
     // \b - empty strings at the beginning and end of a word
     // \n - newline char
     return /[ \t\b\n]/.test(c);
+  }
+
+  function isNumber(c: string) {
+    return /[0-9]/.test(c);
+  }
+
+  function isAlphanumerical(c: string) {
+    return /[_a-zA-Z0-9]/.test(c);
   }
 
   function scanForward(pred: (x: string) => boolean) {
