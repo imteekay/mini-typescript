@@ -30,6 +30,7 @@ export enum Node {
   Var,
   TypeAlias,
   EmptyStatement,
+  EndOfFile,
 }
 
 export type Error = {
@@ -59,7 +60,12 @@ export type Assignment = Location & {
   value: Expression;
 };
 
-export type Statement = ExpressionStatement | Var | TypeAlias | EmptyStatement;
+export type Statement =
+  | ExpressionStatement
+  | Var
+  | TypeAlias
+  | EmptyStatement
+  | EndOfFile;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
@@ -81,6 +87,10 @@ export type TypeAlias = Location & {
 
 export type EmptyStatement = {
   kind: Node.EmptyStatement;
+};
+
+export type EndOfFile = {
+  kind: Node.EndOfFile;
 };
 
 export type Declaration = Var | TypeAlias; // plus others, like function

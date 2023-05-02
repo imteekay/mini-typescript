@@ -14,6 +14,7 @@ const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
 const errorType: Type = { id: 'error' };
 const empty: Type = { id: 'empty' };
+const eof: Type = { id: 'eof' };
 
 function typeToString(type: Type) {
   return type.id;
@@ -44,6 +45,8 @@ export function check(module: Module) {
         return checkType(statement.typename);
       case Node.EmptyStatement:
         return empty;
+      case Node.EndOfFile:
+        return eof;
     }
   }
 

@@ -17,6 +17,8 @@ function emitStatement(statement: Statement): string {
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:
       return '';
+    case Node.EndOfFile:
+      return '';
   }
 }
 
