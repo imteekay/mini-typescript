@@ -33,7 +33,7 @@ npm run mtsc ./tests/singleVar.ts
 
 ## Exercises
 
-- [x] Add EmptyStatement.
+- [x] Add EmptyStatement (https://github.com/imteekay/mini-typescript/pull/2).
 - [ ] Make semicolon a statement ender, not statement separator.
   - Hint: You'll need a predicate to peek at the next token and decide if it's the start of an element.
   - Bonus: Switch from semicolon to newline as statement ender.
