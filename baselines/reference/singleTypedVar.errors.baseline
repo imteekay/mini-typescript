@@ -1,9 +1,5 @@
 [
   {
-    "pos": 43,
-    "message": "Expected identifier or literal but got EOF"
-  },
-  {
     "pos": 17,
     "message": "Cannot assign initialiser of type 'number' to variable with declared type 'string'."
   },

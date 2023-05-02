@@ -32,6 +32,7 @@ export enum Node {
   Var,
   TypeAlias,
   StringLiteral,
+  EmptyStatement,
 }
 
 export type Error = {
@@ -67,7 +68,7 @@ export type Assignment = Location & {
   value: Expression;
 };
 
-export type Statement = ExpressionStatement | Var | TypeAlias;
+export type Statement = ExpressionStatement | Var | TypeAlias | EmptyStatement;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
@@ -85,6 +86,10 @@ export type TypeAlias = Location & {
   kind: Node.TypeAlias;
   name: Identifier;
   typename: Identifier;
+};
+
+export type EmptyStatement = {
+  kind: Node.EmptyStatement;
 };
 
 export type Declaration = Var | TypeAlias; // plus others, like function

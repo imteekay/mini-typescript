@@ -147,11 +147,7 @@
       }
     },
     {
-      "kind": "ExpressionStatement",
-      "expr": {
-        "kind": "Identifier",
-        "text": "(missing)"
-      }
+      "kind": "EmptyStatement"
     }
   ]
 }

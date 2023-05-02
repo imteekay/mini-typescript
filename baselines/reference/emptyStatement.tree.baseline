@@ -5,6 +5,12 @@
         "kind": "Var",
         "pos": 3
       }
+    ],
+    "y": [
+      {
+        "kind": "Var",
+        "pos": 22
+      }
     ]
   },
   "statements": [
@@ -14,16 +20,27 @@
         "kind": "Identifier",
         "text": "x"
       },
+      "typename": {
+        "kind": "Identifier",
+        "text": "number"
+      },
       "init": {
         "kind": "Literal",
         "value": 1
       }
     },
     {
+      "kind": "EmptyStatement"
+    },
+    {
       "kind": "Var",
       "name": {
         "kind": "Identifier",
-        "text": "x"
+        "text": "y"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "number"
       },
       "init": {
         "kind": "Literal",
