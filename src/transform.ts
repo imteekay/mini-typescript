@@ -18,8 +18,6 @@ function typescript(statements: Statement[]) {
         return [];
       case Node.EmptyStatement:
         return [];
-      case Node.EndOfFile:
-        return [];
     }
   }
 }

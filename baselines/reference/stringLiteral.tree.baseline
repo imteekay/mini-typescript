@@ -145,9 +145,6 @@
         "value": "escaped\nR",
         "isSingleQuote": true
       }
-    },
-    {
-      "kind": "EndOfFile"
     }
   ]
 }

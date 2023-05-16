@@ -46,9 +46,6 @@
         "kind": "NumericLiteral",
         "value": 2
       }
-    },
-    {
-      "kind": "EndOfFile"
     }
   ]
 }

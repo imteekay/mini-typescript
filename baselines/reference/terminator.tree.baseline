@@ -73,9 +73,6 @@
         "kind": "Identifier",
         "text": "z"
       }
-    },
-    {
-      "kind": "EndOfFile"
     }
   ]
 }

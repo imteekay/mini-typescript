@@ -15,7 +15,11 @@ export function parse(lexer: Lexer): Module {
 
   function parseModule(): Module {
     return {
-      statements: parseStatements(parseStatement),
+      statements: parseStatements(
+        parseStatement,
+        () => tryParseToken(Token.Semicolon),
+        () => lexer.token() === Token.Semicolon,
+      ),
       locals: new Map(),
     };
   }
@@ -63,9 +67,7 @@ export function parse(lexer: Lexer): Module {
   function parseStatement(): Statement {
     const pos = lexer.pos();
 
-    if (tryParseToken(Token.EOF)) {
-      return { kind: Node.EndOfFile };
-    } else if (tryParseToken(Token.Var)) {
+    if (tryParseToken(Token.Var)) {
       const name = parseIdentifier();
       const typename = tryParseToken(Token.Colon)
         ? parseIdentifier()
@@ -78,13 +80,8 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
-    } else if (tryParseToken(Token.Semicolon)) {
-      // if a semicolon is followed by another semicolon,
-      // it should return an empty statement
-      if (lexer.token() === Token.Semicolon) {
-        return { kind: Node.EmptyStatement };
-      }
-      return parseStatement();
+    } else if (lexer.token() === Token.Semicolon) {
+      return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
   }
@@ -108,10 +105,18 @@ export function parse(lexer: Lexer): Module {
     }
   }
 
-  function parseStatements<T>(element: () => T) {
+  function parseStatements<T>(
+    element: () => T,
+    terminator: () => boolean,
+    peek: () => boolean,
+  ) {
     const list = [element()];
     while (lexer.token() !== Token.EOF) {
-      list.push(element());
+      if (terminator()) {
+        if (peek()) list.push(element());
+      } else {
+        list.push(element());
+      }
     }
     return list;
   }
