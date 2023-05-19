@@ -51,9 +51,26 @@ export function check(module: Module) {
   function checkExpression(expression: Expression): Type {
     switch (expression.kind) {
       case Node.Identifier:
-        const symbol = resolve(module.locals, expression.text, Node.Var);
+        const resolveExpression = (kind: Node.Var | Node.Let) =>
+          resolve(module.locals, expression.text, kind);
+
+        const symbol =
+          resolveExpression(Node.Var) || resolveExpression(Node.Let);
+
         if (symbol) {
-          return checkStatement(symbol.valueDeclaration!);
+          if (
+            symbol.valueDeclaration &&
+            symbol.valueDeclaration.pos < expression.pos
+          ) {
+            return checkStatement(symbol.valueDeclaration!);
+          }
+
+          error(
+            expression.pos,
+            `Block-scoped variable '${expression.text}' used before its declaration.`,
+          );
+
+          return errorType;
         }
         error(expression.pos, 'Could not resolve ' + expression.text);
         return errorType;

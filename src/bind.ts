@@ -46,7 +46,7 @@ export function bind(m: Module) {
 export function resolve(
   locals: Table,
   name: string,
-  meaning: Node.Var | Node.TypeAlias,
+  meaning: Node.Var | Node.TypeAlias | Node.Let,
 ) {
   const symbol = locals.get(name);
   if (symbol?.declarations.some((d) => d.kind === meaning)) {

@@ -3,11 +3,18 @@
     "variable": [
       {
         "kind": "Let",
-        "pos": 3
+        "pos": 13
       }
     ]
   },
   "statements": [
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "variable"
+      }
+    },
     {
       "kind": "Let",
       "name": {
@@ -17,13 +24,6 @@
       "init": {
         "kind": "NumericLiteral",
         "value": 1
-      }
-    },
-    {
-      "kind": "ExpressionStatement",
-      "expr": {
-        "kind": "Identifier",
-        "text": "variable"
       }
     },
     {
