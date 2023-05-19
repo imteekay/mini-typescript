@@ -1,0 +1,65 @@
+{
+  "locals": {
+    "x": [
+      {
+        "kind": "Var",
+        "pos": 3
+      }
+    ],
+    "y": [
+      {
+        "kind": "Let",
+        "pos": 25
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "x"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 1
+      }
+    },
+    {
+      "kind": "Let",
+      "name": {
+        "kind": "Identifier",
+        "text": "x"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 2
+      }
+    },
+    {
+      "kind": "Let",
+      "name": {
+        "kind": "Identifier",
+        "text": "y"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 1
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "y"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 2
+      }
+    },
+    {
+      "kind": "EmptyStatement"
+    }
+  ]
+}
