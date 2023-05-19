@@ -3,6 +3,7 @@ import { Token, Lexer, CharCodes } from './types';
 const keywords = {
   function: Token.Function,
   var: Token.Var,
+  let: Token.Let,
   type: Token.Type,
   return: Token.Return,
 };

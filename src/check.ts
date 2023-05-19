@@ -27,6 +27,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.Var:
+      case Node.Let:
         const i = checkExpression(statement.init);
         if (!statement.typename) {
           return i;
