@@ -39,9 +39,9 @@ npm run mtsc ./tests/singleVar.ts
   - Bonus: Switch from semicolon to newline as statement ender.
 - [x] Add string literals (https://github.com/imteekay/mini-typescript/pull/4).
 - [x] Refactor: rename `Literal` to `NumericLiteral` (https://github.com/imteekay/mini-typescript/pull/6).
-- [ ] Add let.
-  - Then add use-before-declaration errors in the checker.
-  - Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
+- [x] Add let.
+  - [ ] Then add use-before-declaration errors in the checker.
+  - [ ] Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
 - [ ] Allow var to have multiple declarations.
   - You'll need to convert a Symbol's declaration into a list.
   - Check that all declarations have the same type.
