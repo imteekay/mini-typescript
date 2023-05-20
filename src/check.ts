@@ -54,15 +54,20 @@ export function check(module: Module) {
         const resolveExpression = (kind: Node.Var | Node.Let) =>
           resolve(module.locals, expression.text, kind);
 
-        const symbol =
-          resolveExpression(Node.Var) || resolveExpression(Node.Let);
+        const varSymbol = resolveExpression(Node.Var);
 
-        if (symbol) {
+        if (varSymbol) {
+          return checkStatement(varSymbol.valueDeclaration!);
+        }
+
+        const letSymbol = resolveExpression(Node.Let);
+
+        if (letSymbol) {
           if (
-            symbol.valueDeclaration &&
-            symbol.valueDeclaration.pos < expression.pos
+            letSymbol.valueDeclaration &&
+            letSymbol.valueDeclaration.pos < expression.pos
           ) {
-            return checkStatement(symbol.valueDeclaration!);
+            return checkStatement(letSymbol.valueDeclaration!);
           }
 
           error(
@@ -72,6 +77,7 @@ export function check(module: Module) {
 
           return errorType;
         }
+
         error(expression.pos, 'Could not resolve ' + expression.text);
         return errorType;
       case Node.NumericLiteral:
