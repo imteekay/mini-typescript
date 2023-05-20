@@ -14,6 +14,7 @@ const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
 const errorType: Type = { id: 'error' };
 const empty: Type = { id: 'empty' };
+const anyType: Type = { id: 'any' };
 
 function typeToString(type: Type) {
   return type.id;
@@ -42,6 +43,9 @@ export function check(module: Module) {
         return t;
       case Node.TypeAlias:
         return checkType(statement.typename);
+      case Node.VariableDeclarationList:
+        statement.declarations.forEach(checkStatement);
+        return anyType;
       case Node.EmptyStatement:
         return empty;
     }

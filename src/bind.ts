@@ -7,6 +7,12 @@ export function bind(m: Module) {
   }
 
   function bindStatement(locals: Table, statement: Statement) {
+    if (statement.kind === Node.VariableDeclarationList) {
+      statement.declarations.forEach((declaration) =>
+        bindStatement(locals, declaration),
+      );
+    }
+
     if (statement.kind === Node.Var || statement.kind === Node.TypeAlias) {
       const symbol = locals.get(statement.name.text);
       if (symbol) {

@@ -27,9 +27,11 @@ function emitStatement(statement: Statement): string {
       return emitExpression(statement.expr);
     case Node.Var:
       const typestring = statement.typename ? ': ' + statement.name : '';
-      return `var ${statement.name.text}${typestring} = ${emitExpression(
+      return `${statement.name.text}${typestring} = ${emitExpression(
         statement.init,
       )}`;
+    case Node.VariableDeclarationList:
+      return `var ${statement.declarations.map(emitStatement).join(',')}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:

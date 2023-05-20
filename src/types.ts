@@ -9,6 +9,7 @@ export enum Token {
   Newline = 'Newline',
   Semicolon = 'Semicolon',
   Colon = 'Colon',
+  Comma = 'Comma',
   Whitespace = 'Whitespace',
   String = 'String',
   Unknown = 'Unknown',
@@ -33,6 +34,7 @@ export enum Node {
   TypeAlias,
   StringLiteral,
   EmptyStatement,
+  VariableDeclarationList,
 }
 
 export type Error = {
@@ -72,11 +74,21 @@ export type Assignment = Location & {
   value: Expression;
 };
 
-export type Statement = ExpressionStatement | Var | TypeAlias | EmptyStatement;
+export type Statement =
+  | ExpressionStatement
+  | Var
+  | TypeAlias
+  | EmptyStatement
+  | VariableDeclarationList;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
   expr: Expression;
+};
+
+export type VariableDeclarationList = Location & {
+  kind: Node.VariableDeclarationList;
+  declarations: Var[];
 };
 
 export type Var = Location & {

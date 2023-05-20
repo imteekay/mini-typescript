@@ -58,6 +58,9 @@ export function lex(s: string): Lexer {
         case ':':
           token = Token.Colon;
           break;
+        case ',':
+          token = Token.Comma;
+          break;
         default:
           token = Token.Unknown;
           break;

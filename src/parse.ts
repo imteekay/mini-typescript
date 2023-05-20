@@ -6,6 +6,7 @@ import {
   Identifier,
   Expression,
   Module,
+  Var,
 } from './types';
 import { error } from './error';
 
@@ -66,13 +67,11 @@ export function parse(lexer: Lexer): Module {
   function parseStatement(): Statement {
     const pos = lexer.pos();
     if (tryParseToken(Token.Var)) {
-      const name = parseIdentifier();
-      const typename = tryParseToken(Token.Colon)
-        ? parseIdentifier()
-        : undefined;
-      parseExpected(Token.Equals);
-      const init = parseExpression();
-      return { kind: Node.Var, name, typename, init, pos };
+      return {
+        kind: Node.VariableDeclarationList,
+        declarations: parseVariableDeclarations(),
+        pos,
+      };
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();
       parseExpected(Token.Equals);
@@ -82,6 +81,26 @@ export function parse(lexer: Lexer): Module {
       return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
+  }
+
+  function parseVariableDeclarations() {
+    const declarations: Var[] = [];
+    do {
+      const name = parseIdentifier();
+      const typename = tryParseToken(Token.Colon)
+        ? parseIdentifier()
+        : undefined;
+      parseExpected(Token.Equals);
+      const init = parseExpression();
+      declarations.push({
+        kind: Node.Var,
+        name,
+        typename,
+        init,
+        pos: lexer.pos(),
+      });
+    } while (tryParseToken(Token.Comma));
+    return declarations;
   }
 
   function tryParseToken(expected: Token) {

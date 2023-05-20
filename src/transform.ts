@@ -1,4 +1,4 @@
-import { Statement, Node } from './types';
+import { Statement, Node, Var } from './types';
 
 export function transform(statements: Statement[]) {
   return typescript(statements);
@@ -18,6 +18,15 @@ function typescript(statements: Statement[]) {
         return [];
       case Node.EmptyStatement:
         return [];
+      case Node.VariableDeclarationList:
+        return [
+          {
+            ...statement,
+            declarations: statement.declarations.flatMap(
+              transformStatement,
+            ) as Var[],
+          },
+        ];
     }
   }
 }
