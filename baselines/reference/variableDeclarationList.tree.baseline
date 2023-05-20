@@ -1,15 +1,21 @@
 {
   "locals": {
-    "x": [
+    "var1": [
       {
         "kind": "Var",
-        "pos": 3
+        "pos": 13
       }
     ],
-    "y": [
+    "var2": [
       {
         "kind": "Var",
-        "pos": 22
+        "pos": 23
+      }
+    ],
+    "var3": [
+      {
+        "kind": "Var",
+        "pos": 33
       }
     ]
   },
@@ -21,38 +27,33 @@
           "kind": "Var",
           "name": {
             "kind": "Identifier",
-            "text": "x"
-          },
-          "typename": {
-            "kind": "Identifier",
-            "text": "number"
+            "text": "var1"
           },
           "init": {
             "kind": "NumericLiteral",
             "value": 1
           }
-        }
-      }
-    },
-    {
-      "kind": "EmptyStatement"
-    },
-    {
-      "kind": "VariableDeclarationList",
-      "declarations": {
-        "0": {
+        },
+        "1": {
           "kind": "Var",
           "name": {
             "kind": "Identifier",
-            "text": "y"
-          },
-          "typename": {
-            "kind": "Identifier",
-            "text": "number"
+            "text": "var2"
           },
           "init": {
             "kind": "NumericLiteral",
             "value": 2
+          }
+        },
+        "2": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "var3"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 3
           }
         }
       }
