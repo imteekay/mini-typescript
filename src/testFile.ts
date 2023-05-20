@@ -30,7 +30,6 @@ function displayTable(table: Table) {
 }
 
 function displayModule(m: Module) {
-  console.log(JSON.stringify(m.statements, null, 2));
   return {
     locals: displayTable(m.locals),
     statements: m.statements.map(display),

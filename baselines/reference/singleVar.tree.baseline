@@ -3,20 +3,25 @@
     "singleDeclaration": [
       {
         "kind": "Var",
-        "pos": 3
+        "pos": 26
       }
     ]
   },
   "statements": [
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "singleDeclaration"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 1
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "singleDeclaration"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 1
+          }
+        }
       }
     },
     {

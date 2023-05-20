@@ -7,13 +7,13 @@
       },
       {
         "kind": "Var",
-        "pos": 22
+        "pos": 32
       }
     ],
     "nat": [
       {
         "kind": "Var",
-        "pos": 36
+        "pos": 51
       }
     ],
     "Not": [
@@ -31,19 +31,19 @@
     "nit": [
       {
         "kind": "Var",
-        "pos": 110
+        "pos": 125
       }
     ],
     "Nut": [
       {
         "kind": "Var",
-        "pos": 130
+        "pos": 140
       }
     ],
     "nut": [
       {
         "kind": "Var",
-        "pos": 144
+        "pos": 159
       }
     ],
     "Net": [
@@ -55,7 +55,7 @@
     "net": [
       {
         "kind": "Var",
-        "pos": 182
+        "pos": 193
       }
     ]
   },
@@ -72,29 +72,39 @@
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "Nat"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 12
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "Nat"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 12
+          }
+        }
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "nat"
-      },
-      "typename": {
-        "kind": "Identifier",
-        "text": "Nat"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 13
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "nat"
+          },
+          "typename": {
+            "kind": "Identifier",
+            "text": "Nat"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 13
+          }
+        }
       }
     },
     {
@@ -131,44 +141,59 @@
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "nit"
-      },
-      "typename": {
-        "kind": "Identifier",
-        "text": "Not"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 14
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "nit"
+          },
+          "typename": {
+            "kind": "Identifier",
+            "text": "Not"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 14
+          }
+        }
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "Nut"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 15
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "Nut"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 15
+          }
+        }
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "nut"
-      },
-      "typename": {
-        "kind": "Identifier",
-        "text": "Nut"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 16
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "nut"
+          },
+          "typename": {
+            "kind": "Identifier",
+            "text": "Nut"
+          },
+          "init": {
+            "kind": "NumericLiteral",
+            "value": 16
+          }
+        }
       }
     },
     {
@@ -183,14 +208,19 @@
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "net"
-      },
-      "init": {
-        "kind": "Identifier",
-        "text": "Net"
+      "kind": "VariableDeclarationList",
+      "declarations": {
+        "0": {
+          "kind": "Var",
+          "name": {
+            "kind": "Identifier",
+            "text": "net"
+          },
+          "init": {
+            "kind": "Identifier",
+            "text": "Net"
+          }
+        }
       }
     },
     {
