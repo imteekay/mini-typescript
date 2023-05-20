@@ -42,7 +42,7 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add let.
   - Then add use-before-declaration errors in the checker.
   - Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
-- [ ] Allow var to have multiple declarations.
+- [x] Allow var to have multiple declarations (https://github.com/imteekay/mini-typescript/pull/9).
   - You'll need to convert a Symbol's declaration into a list.
   - Check that all declarations have the same type.
 - [ ] Add type aliases.
