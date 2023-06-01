@@ -17,7 +17,7 @@ function typescript(statements: Statement[]) {
       case Node.TypeAlias:
         return [];
       case Node.EmptyStatement:
-        return [];
+        return [statement];
     }
   }
 }
