@@ -135,3 +135,9 @@ export enum CharCodes {
   doubleQuote = 34,
   backslash = 92,
 }
+
+type CompilerTarget = 'es5' | 'es2015' | 'es2017' | 'es2022';
+
+export interface CompilerOptions {
+  target: CompilerTarget;
+}
