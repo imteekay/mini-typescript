@@ -1,4 +1,4 @@
-import { Module, Node, Statement, Table } from './types';
+import { Declaration, Module, Node, Statement, Table } from './types';
 import { error } from './error';
 
 export function bind(m: Module) {
@@ -16,9 +16,9 @@ export function bind(m: Module) {
       if (symbol) {
         const other = symbol.declarations.find(
           (d) =>
-            d.kind === statement.kind ||
-            (d.kind === Node.Var && statement.kind === Node.Let) ||
-            (d.kind === Node.Let && statement.kind === Node.Var),
+            hasEqualKindButNotVar(d, statement) ||
+            willRedeclareVarWithLet(d, statement) ||
+            willRedeclareLetWithVar(d, statement),
         );
         if (other) {
           error(
@@ -40,6 +40,27 @@ export function bind(m: Module) {
         });
       }
     }
+  }
+
+  function hasEqualKindButNotVar(
+    declaration: Declaration,
+    statement: Statement,
+  ) {
+    return declaration.kind === statement.kind && statement.kind !== Node.Var;
+  }
+
+  function willRedeclareVarWithLet(
+    declaration: Declaration,
+    statement: Statement,
+  ) {
+    return declaration.kind === Node.Var && statement.kind === Node.Let;
+  }
+
+  function willRedeclareLetWithVar(
+    declaration: Declaration,
+    statement: Statement,
+  ) {
+    return declaration.kind === Node.Let && statement.kind === Node.Var;
   }
 }
 
