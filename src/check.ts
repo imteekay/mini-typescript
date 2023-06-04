@@ -8,7 +8,7 @@ import {
   TypeAlias,
 } from './types';
 import { error } from './error';
-import { resolve } from './bind';
+import { Meaning, resolve } from './bind';
 
 const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
@@ -51,23 +51,14 @@ export function check(module: Module) {
   function checkExpression(expression: Expression): Type {
     switch (expression.kind) {
       case Node.Identifier:
-        const resolveExpression = (kind: Node.Var | Node.Let) =>
-          resolve(module.locals, expression.text, kind);
+        const resolveExpression = (meaning: Meaning) =>
+          resolve(module.locals, expression.text, meaning);
 
-        const varSymbol = resolveExpression(Node.Var);
+        const symbol = resolveExpression(Meaning.Value);
 
-        if (varSymbol) {
-          return checkStatement(varSymbol.valueDeclaration!);
-        }
-
-        const letSymbol = resolveExpression(Node.Let);
-
-        if (letSymbol) {
-          if (
-            letSymbol.valueDeclaration &&
-            letSymbol.valueDeclaration.pos < expression.pos
-          ) {
-            return checkStatement(letSymbol.valueDeclaration!);
+        if (symbol?.valueDeclaration?.kind === Node.Let) {
+          if (symbol.valueDeclaration.pos < expression.pos) {
+            return checkStatement(symbol.valueDeclaration!);
           }
 
           error(
@@ -76,6 +67,10 @@ export function check(module: Module) {
           );
 
           return errorType;
+        }
+
+        if (symbol?.valueDeclaration?.kind === Node.Var) {
+          return checkStatement(symbol.valueDeclaration!);
         }
 
         error(expression.pos, 'Could not resolve ' + expression.text);
@@ -105,7 +100,7 @@ export function check(module: Module) {
       case 'number':
         return numberType;
       default:
-        const symbol = resolve(module.locals, name.text, Node.TypeAlias);
+        const symbol = resolve(module.locals, name.text, Meaning.Type);
         if (symbol) {
           return checkType(
             (

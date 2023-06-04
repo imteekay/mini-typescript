@@ -64,13 +64,20 @@ export function bind(m: Module) {
   }
 }
 
-export function resolve(
-  locals: Table,
-  name: string,
-  meaning: Node.Var | Node.TypeAlias | Node.Let,
-) {
+export enum Meaning {
+  Value,
+  Type,
+}
+
+export function resolve(locals: Table, name: string, meaning: Meaning) {
   const symbol = locals.get(name);
-  if (symbol?.declarations.some((d) => d.kind === meaning)) {
+  if (
+    symbol?.declarations.some((d) =>
+      meaning === Meaning.Value
+        ? [Node.Var, Node.Let].includes(d.kind)
+        : d.kind === Node.TypeAlias,
+    )
+  ) {
     return symbol;
   }
 }
