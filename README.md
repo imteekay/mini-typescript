@@ -40,7 +40,8 @@ npm run mtsc ./tests/singleVar.ts
 - [x] Add string literals (https://github.com/imteekay/mini-typescript/pull/4).
 - [x] Refactor: rename `Literal` to `NumericLiteral` (https://github.com/imteekay/mini-typescript/pull/6).
 - [ ] Add let.
-  - Then add use-before-declaration errors in the checker.
+  - Make sure the binder resolves variables declared with `var` and `let` the same way. The simplest way is to add a `kind` property to `Symbol`.
+  - Add use-before-declaration errors in the checker.
   - Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
 - [ ] Allow var to have multiple declarations.
   - You'll need to convert a Symbol's declaration into a list.
@@ -48,7 +49,13 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add type aliases.
   - You'll need to convert a Symbol's declaration into a list.
   - Name resolution will need to search a symbol's declarations to see whether it has a type declaration.
-- [ ] Add an ES5 transformer that converts let -> var.
+- [ ] Add `interface`.
+  - Make sure the binder resolves types declared with `type` and `interface` the same way.
+  - After the basics are working, allow interface to have multiple declarations.
+  - Interfaces should have an object type, but that object type should combine the properties from every declaration.
+- [ ] Add objects and object types.
+  - `Type` will need to become more complicated.
+- [ ] Add an ES5 transformer that converts `let` -> `var`.
 - [ ] Add function declarations and function calls.
 - [ ] Add arrow functions with an appropriate transform in ES5.
 - [ ] Add support for the lexer to report errors
