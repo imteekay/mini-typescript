@@ -18,7 +18,7 @@ export function parse(lexer: Lexer): Module {
       statements: parseStatements(
         parseStatement,
         () => tryParseToken(Token.Semicolon),
-        () => lexer.token() === Token.Semicolon,
+        () => lexer.token() !== Token.EOF,
       ),
       locals: new Map(),
     };
@@ -110,13 +110,10 @@ export function parse(lexer: Lexer): Module {
     terminator: () => boolean,
     peek: () => boolean,
   ) {
-    const list = [element()];
-    while (lexer.token() !== Token.EOF) {
-      if (terminator()) {
-        if (peek()) list.push(element());
-      } else {
-        list.push(element());
-      }
+    const list = [];
+    while (peek()) {
+      list.push(element());
+      terminator();
     }
     return list;
   }
