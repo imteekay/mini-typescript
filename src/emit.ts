@@ -30,8 +30,10 @@ function emitStatement(statement: Statement): string {
       return `${statement.name.text}${typestring} = ${emitExpression(
         statement.init,
       )}`;
-    case Node.VariableDeclarationList:
-      return `var ${statement.declarations.map(emitStatement).join(',')}`;
+    case Node.VariableStatement:
+      return `var ${statement.declarationList.declarations
+        .map(emitStatement)
+        .join(',')}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:

@@ -9,33 +9,39 @@
   },
   "statements": [
     {
-      "kind": "VariableDeclarationList",
-      "declarations": {
-        "0": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "x"
-          },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 1
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "x"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 1
+            }
           }
         }
       }
     },
     {
-      "kind": "VariableDeclarationList",
-      "declarations": {
-        "0": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "x"
-          },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 2
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "x"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 2
+            }
           }
         }
       }

@@ -9,17 +9,20 @@
   },
   "statements": [
     {
-      "kind": "VariableDeclarationList",
-      "declarations": {
-        "0": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "singleDeclaration"
-          },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 1
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "singleDeclaration"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 1
+            }
           }
         }
       }

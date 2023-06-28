@@ -68,9 +68,13 @@ export function parse(lexer: Lexer): Module {
     const pos = lexer.pos();
     if (tryParseToken(Token.Var)) {
       return {
-        kind: Node.VariableDeclarationList,
-        declarations: parseVariableDeclarations(),
+        kind: Node.VariableStatement,
         pos,
+        declarationList: {
+          kind: Node.VariableDeclarationList,
+          declarations: parseVariableDeclarations(),
+          pos,
+        },
       };
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();

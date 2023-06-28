@@ -43,8 +43,8 @@ export function check(module: Module) {
         return t;
       case Node.TypeAlias:
         return checkType(statement.typename);
-      case Node.VariableDeclarationList:
-        statement.declarations.forEach(checkStatement);
+      case Node.VariableStatement:
+        statement.declarationList.declarations.forEach(checkStatement);
         return anyType;
       case Node.EmptyStatement:
         return empty;

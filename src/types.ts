@@ -34,6 +34,7 @@ export enum Node {
   TypeAlias,
   StringLiteral,
   EmptyStatement,
+  VariableStatement,
   VariableDeclarationList,
 }
 
@@ -79,11 +80,16 @@ export type Statement =
   | Var
   | TypeAlias
   | EmptyStatement
-  | VariableDeclarationList;
+  | VariableStatement;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
   expr: Expression;
+};
+
+export type VariableStatement = Location & {
+  kind: Node.VariableStatement;
+  declarationList: VariableDeclarationList;
 };
 
 export type VariableDeclarationList = Location & {

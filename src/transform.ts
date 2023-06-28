@@ -18,13 +18,16 @@ function typescript(statements: Statement[]) {
         return [];
       case Node.EmptyStatement:
         return [statement];
-      case Node.VariableDeclarationList:
+      case Node.VariableStatement:
         return [
           {
             ...statement,
-            declarations: statement.declarations.flatMap(
-              transformStatement,
-            ) as Var[],
+            declarationList: {
+              ...statement.declarationList,
+              declarations: statement.declarationList.declarations.flatMap(
+                transformStatement,
+              ) as Var[],
+            },
           },
         ];
     }

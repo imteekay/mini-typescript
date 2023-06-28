@@ -7,8 +7,8 @@ export function bind(m: Module) {
   }
 
   function bindStatement(locals: Table, statement: Statement) {
-    if (statement.kind === Node.VariableDeclarationList) {
-      statement.declarations.forEach((declaration) =>
+    if (statement.kind === Node.VariableStatement) {
+      statement.declarationList.declarations.forEach((declaration) =>
         bindStatement(locals, declaration),
       );
     }

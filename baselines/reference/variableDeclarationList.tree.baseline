@@ -21,39 +21,42 @@
   },
   "statements": [
     {
-      "kind": "VariableDeclarationList",
-      "declarations": {
-        "0": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "var1"
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 1
+            }
           },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 1
-          }
-        },
-        "1": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "var2"
+          "1": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "var2"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 2
+            }
           },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 2
-          }
-        },
-        "2": {
-          "kind": "Var",
-          "name": {
-            "kind": "Identifier",
-            "text": "var3"
-          },
-          "init": {
-            "kind": "NumericLiteral",
-            "value": 3
+          "2": {
+            "kind": "Var",
+            "name": {
+              "kind": "Identifier",
+              "text": "var3"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 3
+            }
           }
         }
       }
