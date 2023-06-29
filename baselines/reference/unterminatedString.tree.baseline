@@ -1,0 +1,28 @@
+{
+  "locals": {
+    "unterminatedString": [
+      {
+        "kind": "Var",
+        "pos": 3
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "unterminatedString"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "string"
+      },
+      "init": {
+        "kind": "StringLiteral",
+        "value": "unterminatedString;\n",
+        "isSingleQuote": false
+      }
+    }
+  ]
+}
