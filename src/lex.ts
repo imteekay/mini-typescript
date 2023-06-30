@@ -1,3 +1,4 @@
+import { error } from './error';
 import { Token, Lexer, CharCodes } from './types';
 
 const keywords = {
@@ -78,7 +79,9 @@ export function lex(s: string): Lexer {
 
     while (true) {
       if (pos >= s.length) {
-        // report unterminated string literal error
+        error(pos, 'Unterminated string literal');
+        stringValue += s.slice(start, pos);
+        break;
       }
 
       const char = s.charCodeAt(pos);

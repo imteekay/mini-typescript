@@ -39,6 +39,8 @@ npm run mtsc ./tests/singleVar.ts
   - Bonus: Switch from semicolon to newline as statement ender.
 - [x] Add string literals (https://github.com/imteekay/mini-typescript/pull/4).
 - [x] Refactor: rename `Literal` to `NumericLiteral` (https://github.com/imteekay/mini-typescript/pull/6).
+- [x] Add support for the lexer to report errors
+  - report unterminated string literal error
 - [ ] Add let.
   - Make sure the binder resolves variables declared with `var` and `let` the same way. The simplest way is to add a `kind` property to `Symbol`.
   - Add use-before-declaration errors in the checker.
@@ -58,5 +60,3 @@ npm run mtsc ./tests/singleVar.ts
 - [ ] Add an ES5 transformer that converts `let` -> `var`.
 - [ ] Add function declarations and function calls.
 - [ ] Add arrow functions with an appropriate transform in ES5.
-- [ ] Add support for the lexer to report errors
-  - report unterminated string literal error
