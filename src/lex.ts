@@ -134,20 +134,22 @@ export function lex(s: string): Lexer {
 export function lexAll(s: string) {
   const lexer = lex(s);
   let tokens = [];
-  let t;
+  let token;
 
   while (true) {
     lexer.scan();
-    t = lexer.token();
-    switch (t) {
+    token = lexer.token();
+
+    switch (token) {
       case Token.EOF:
         return tokens;
       case Token.Identifier:
       case Token.NumericLiteral:
-        tokens.push({ token: t, text: lexer.text() });
+      case Token.String:
+        tokens.push({ token, text: lexer.text() });
         break;
       default:
-        tokens.push({ token: t });
+        tokens.push({ token });
         break;
     }
   }
