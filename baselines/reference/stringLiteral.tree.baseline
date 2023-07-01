@@ -106,7 +106,7 @@
       },
       "init": {
         "kind": "StringLiteral",
-        "value": "escaped\nB",
+        "value": "escaped\bB",
         "isSingleQuote": true
       }
     },
@@ -118,7 +118,7 @@
       },
       "init": {
         "kind": "StringLiteral",
-        "value": "escaped\nT",
+        "value": "escaped\tT",
         "isSingleQuote": true
       }
     },
@@ -142,7 +142,7 @@
       },
       "init": {
         "kind": "StringLiteral",
-        "value": "escaped\nR",
+        "value": "escaped\rR",
         "isSingleQuote": true
       }
     },
