@@ -1,0 +1,26 @@
+[
+  [
+    "Var"
+  ],
+  [
+    "Identifier",
+    "num"
+  ],
+  [
+    "Colon"
+  ],
+  [
+    "Identifier",
+    "number"
+  ],
+  [
+    "Equals"
+  ],
+  [
+    "NumericLiteral",
+    "1"
+  ],
+  [
+    "Semicolon"
+  ]
+]
