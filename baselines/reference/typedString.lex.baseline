@@ -1,0 +1,26 @@
+[
+  [
+    "Var"
+  ],
+  [
+    "Identifier",
+    "s"
+  ],
+  [
+    "Colon"
+  ],
+  [
+    "Identifier",
+    "string"
+  ],
+  [
+    "Equals"
+  ],
+  [
+    "String",
+    "string"
+  ],
+  [
+    "Semicolon"
+  ]
+]

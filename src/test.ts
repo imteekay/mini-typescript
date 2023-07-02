@@ -53,6 +53,8 @@ const lexTests = {
   varLex: 'var x = 1',
   semicolonLex: 'x; y',
   newlineLex: 'x\n y  \n',
+  typedNumber: 'var num: number = 1;',
+  typedString: 'var s: string = "string";',
 };
 
 let lexResult = sum(
