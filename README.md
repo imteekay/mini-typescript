@@ -49,11 +49,14 @@ npm run mtsc ./tests/singleVar.ts
   - You'll need to convert a Symbol's declaration into a list.
   - Check that all declarations have the same type.
 - [ ] Add objects and object types.
-  - `Type` will need to become more complicated.
+  - [ ] Implement mapped types
+  - [ ] Implement optional member
+  - [ ] Implement method signature
 - [ ] Add `interface`.
   - Make sure the binder resolves types declared with `type` and `interface` the same way.
   - After the basics are working, allow interface to have multiple declarations.
   - Interfaces should have an object type, but that object type should combine the properties from every declaration.
+- [ ] Implement union types
 - [ ] Add an ES5 transformer that converts `let` -> `var`.
 - [ ] Add function declarations and function calls.
 - [ ] Add arrow functions with an appropriate transform in ES5.
