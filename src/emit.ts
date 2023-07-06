@@ -18,7 +18,9 @@ const escapedCharsMap = new Map(
 );
 
 export function emit(statements: Statement[]) {
-  return statements.map(emitStatement).join(';\n');
+  return statements
+    .map((statement) => `${emitStatement(statement)};\n`)
+    .join('');
 }
 
 function emitStatement(statement: Statement): string {

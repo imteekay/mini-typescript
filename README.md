@@ -34,9 +34,9 @@ npm run mtsc ./tests/singleVar.ts
 ## Exercises
 
 - [x] Add EmptyStatement (https://github.com/imteekay/mini-typescript/pull/2).
-- [ ] Make semicolon a statement ender, not statement separator.
+- [x] Make semicolon a statement ender, not statement separator (https://github.com/imteekay/mini-typescript/pull/7).
   - Hint: You'll need a predicate to peek at the next token and decide if it's the start of an element.
-  - Bonus: Switch from semicolon to newline as statement ender.
+  - [ ] Bonus: Switch from semicolon to newline as statement ender.
 - [x] Add string literals (https://github.com/imteekay/mini-typescript/pull/4).
 - [x] Refactor: rename `Literal` to `NumericLiteral` (https://github.com/imteekay/mini-typescript/pull/6).
 - [x] Add support for the lexer to report errors

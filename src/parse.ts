@@ -9,18 +9,19 @@ import {
 } from './types';
 import { error } from './error';
 
-const emptyTokens = [Token.EOF, Token.Semicolon];
-
 export function parse(lexer: Lexer): Module {
   lexer.scan();
   return parseModule();
 
   function parseModule(): Module {
-    const statements = parseSeparated(parseStatement, () =>
-      tryParseToken(Token.Semicolon),
-    );
-    parseExpected(Token.EOF);
-    return { statements, locals: new Map() };
+    return {
+      statements: parseStatements(
+        parseStatement,
+        () => tryParseToken(Token.Semicolon),
+        () => lexer.token() !== Token.EOF,
+      ),
+      locals: new Map(),
+    };
   }
 
   function parseExpression(): Expression {
@@ -65,6 +66,7 @@ export function parse(lexer: Lexer): Module {
 
   function parseStatement(): Statement {
     const pos = lexer.pos();
+
     if (tryParseToken(Token.Var)) {
       const name = parseIdentifier();
       const typename = tryParseToken(Token.Colon)
@@ -78,7 +80,7 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
-    } else if (emptyTokens.includes(lexer.token())) {
+    } else if (lexer.token() === Token.Semicolon) {
       return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
@@ -103,10 +105,15 @@ export function parse(lexer: Lexer): Module {
     }
   }
 
-  function parseSeparated<T>(element: () => T, separator: () => unknown) {
-    const list = [element()];
-    while (separator()) {
+  function parseStatements<T>(
+    element: () => T,
+    terminator: () => boolean,
+    peek: () => boolean,
+  ) {
+    const list = [];
+    while (peek()) {
       list.push(element());
+      terminator();
     }
     return list;
   }

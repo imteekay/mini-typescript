@@ -1,0 +1,78 @@
+{
+  "locals": {
+    "x": [
+      {
+        "kind": "Var",
+        "pos": 3
+      }
+    ],
+    "y": [
+      {
+        "kind": "Var",
+        "pos": 14
+      }
+    ],
+    "z": [
+      {
+        "kind": "Var",
+        "pos": 25
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "x"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 1
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "y"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 2
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "z"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 3
+      }
+    },
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "x"
+      }
+    },
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "y"
+      }
+    },
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "z"
+      }
+    }
+  ]
+}

@@ -18,9 +18,6 @@
         "kind": "NumericLiteral",
         "value": 1
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }
