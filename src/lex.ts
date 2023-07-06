@@ -1,3 +1,4 @@
+import { error } from './error';
 import { Token, Lexer, CharCodes } from './types';
 
 const keywords = {
@@ -22,21 +23,17 @@ export function lex(s: string): Lexer {
   };
 
   function scan() {
-    // scan forward all
-    // \t - tabs
-    // \b - empty strings at the beginning and end of a word
-    // \n - newline char
-    scanForward((c) => /[ \t\b\n]/.test(c));
+    scanForward(isEmptyStrings);
     const start = pos;
 
     if (pos === s.length) {
       token = Token.EOF;
     } else if (/[0-9]/.test(s.charAt(pos))) {
-      scanForward((c) => /[0-9]/.test(c));
+      scanForward(isNumber);
       text = s.slice(start, pos);
       token = Token.NumericLiteral;
     } else if (/[_a-zA-Z]/.test(s.charAt(pos))) {
-      scanForward((c) => /[_a-zA-Z0-9]/.test(c));
+      scanForward(isAlphanumerical);
       text = s.slice(start, pos);
       token =
         text in keywords
@@ -68,6 +65,22 @@ export function lex(s: string): Lexer {
     }
   }
 
+  function isEmptyStrings(c: string) {
+    // scan forward all
+    // \t - tabs
+    // \b - empty strings at the beginning and end of a word
+    // \n - newline char
+    return /[ \t\b\n]/.test(c);
+  }
+
+  function isNumber(c: string) {
+    return /[0-9]/.test(c);
+  }
+
+  function isAlphanumerical(c: string) {
+    return /[_a-zA-Z0-9]/.test(c);
+  }
+
   function scanForward(pred: (x: string) => boolean) {
     while (pos < s.length && pred(s.charAt(pos))) pos++;
   }
@@ -81,7 +94,9 @@ export function lex(s: string): Lexer {
 
     while (true) {
       if (pos >= s.length) {
-        // report unterminated string literal error
+        error(pos, 'Unterminated string literal');
+        stringValue += s.slice(start, pos);
+        break;
       }
 
       const char = s.charCodeAt(pos);
@@ -134,20 +149,22 @@ export function lex(s: string): Lexer {
 export function lexAll(s: string) {
   const lexer = lex(s);
   let tokens = [];
-  let t;
+  let token;
 
   while (true) {
     lexer.scan();
-    t = lexer.token();
-    switch (t) {
+    token = lexer.token();
+
+    switch (token) {
       case Token.EOF:
         return tokens;
       case Token.Identifier:
       case Token.NumericLiteral:
-        tokens.push({ token: t, text: lexer.text() });
+      case Token.String:
+        tokens.push({ token, text: lexer.text() });
         break;
       default:
-        tokens.push({ token: t });
+        tokens.push({ token });
         break;
     }
   }

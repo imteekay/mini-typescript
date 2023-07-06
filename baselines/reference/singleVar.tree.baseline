@@ -26,9 +26,6 @@
           }
         }
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

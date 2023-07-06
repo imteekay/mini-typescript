@@ -60,9 +60,6 @@
           }
         }
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

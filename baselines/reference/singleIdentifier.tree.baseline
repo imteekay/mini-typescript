@@ -7,9 +7,6 @@
         "kind": "Identifier",
         "text": "x"
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

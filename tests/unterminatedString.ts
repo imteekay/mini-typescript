@@ -1,0 +1,1 @@
+var unterminatedString: string = "unterminatedString;

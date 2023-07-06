@@ -240,9 +240,6 @@
           }
         }
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }
