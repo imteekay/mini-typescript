@@ -145,9 +145,6 @@
         "value": "escaped\rR",
         "isSingleQuote": true
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

@@ -44,9 +44,6 @@
         "value": "test",
         "isSingleQuote": true
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

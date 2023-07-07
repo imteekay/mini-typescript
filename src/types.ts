@@ -35,6 +35,7 @@ export enum Node {
   TypeAlias,
   StringLiteral,
   EmptyStatement,
+  EndOfFile,
 }
 
 export type Error = {

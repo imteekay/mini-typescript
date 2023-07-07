@@ -192,9 +192,6 @@
         "kind": "Identifier",
         "text": "Net"
       }
-    },
-    {
-      "kind": "EmptyStatement"
     }
   ]
 }

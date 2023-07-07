@@ -1,0 +1,1 @@
+"var x = 1;\nvar y = 2;\nvar z = 3;\nx;\ny;\nz;\n"
