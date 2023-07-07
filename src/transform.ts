@@ -12,8 +12,6 @@ function typescript(statements: Statement[]) {
     switch (statement.kind) {
       case Node.ExpressionStatement:
         return [statement];
-      case Node.Var:
-        return [{ ...statement, typename: undefined }];
       case Node.TypeAlias:
         return [];
       case Node.EmptyStatement:
@@ -25,7 +23,9 @@ function typescript(statements: Statement[]) {
             declarationList: {
               ...statement.declarationList,
               declarations: statement.declarationList.declarations.flatMap(
-                transformStatement,
+                (varDeclaration) => [
+                  { ...varDeclaration, typename: undefined },
+                ],
               ) as Var[],
             },
           },

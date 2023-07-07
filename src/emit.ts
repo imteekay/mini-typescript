@@ -1,4 +1,4 @@
-import { Statement, Node, Expression } from './types';
+import { Statement, Node, Expression, Var } from './types';
 
 const singleQuoteRegex = /[\\\'\t\v\f\b\r\n]/g;
 const doubleQuoteRegex = /[\\\"\t\v\f\b\r\n]/g;
@@ -18,7 +18,6 @@ const escapedCharsMap = new Map(
 );
 
 export function emit(statements: Statement[]) {
-  console.log(statements);
   return statements
     .map((statement) => `${emitStatement(statement)};\n`)
     .join('');
@@ -28,14 +27,9 @@ function emitStatement(statement: Statement): string {
   switch (statement.kind) {
     case Node.ExpressionStatement:
       return emitExpression(statement.expr);
-    case Node.Var:
-      const typestring = statement.typename ? ': ' + statement.name : '';
-      return `${statement.name.text}${typestring} = ${emitExpression(
-        statement.init,
-      )}`;
     case Node.VariableStatement:
       return `var ${statement.declarationList.declarations
-        .map(emitStatement)
+        .map(emitVar)
         .join(',')}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
@@ -57,6 +51,13 @@ function emitExpression(expression: Expression): string {
     case Node.Assignment:
       return `${expression.name.text} = ${emitExpression(expression.value)}`;
   }
+}
+
+function emitVar(varDeclaration: Var) {
+  const typestring = varDeclaration.typename ? ': ' + varDeclaration.name : '';
+  return `${varDeclaration.name.text}${typestring} = ${emitExpression(
+    varDeclaration.init,
+  )}`;
 }
 
 function escapeString(string: string, isSingleQuote: boolean) {

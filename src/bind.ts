@@ -1,4 +1,4 @@
-import { Module, Node, Statement, Table } from './types';
+import { Module, Node, Statement, Table, TypeAlias, Var } from './types';
 import { error } from './error';
 
 export function bind(m: Module) {
@@ -9,33 +9,38 @@ export function bind(m: Module) {
   function bindStatement(locals: Table, statement: Statement) {
     if (statement.kind === Node.VariableStatement) {
       statement.declarationList.declarations.forEach((declaration) =>
-        bindStatement(locals, declaration),
+        bindSymbol(locals, declaration),
       );
     }
 
-    if (statement.kind === Node.Var || statement.kind === Node.TypeAlias) {
-      const symbol = locals.get(statement.name.text);
-      if (symbol) {
-        const other = symbol.declarations.find(
-          (d) => d.kind === statement.kind,
+    if (statement.kind === Node.TypeAlias) {
+      bindSymbol(locals, statement);
+    }
+  }
+
+  function bindSymbol(locals: Table, declaration: Var | TypeAlias) {
+    const symbol = locals.get(declaration.name.text);
+    if (symbol) {
+      const other = symbol.declarations.find(
+        (d) => d.kind === declaration.kind,
+      );
+      if (other) {
+        error(
+          declaration.pos,
+          `Cannot redeclare ${declaration.name.text}; first declared at ${other.pos}`,
         );
-        if (other) {
-          error(
-            statement.pos,
-            `Cannot redeclare ${statement.name.text}; first declared at ${other.pos}`,
-          );
-        } else {
-          symbol.declarations.push(statement);
-          if (statement.kind === Node.Var) {
-            symbol.valueDeclaration = statement;
-          }
-        }
       } else {
-        locals.set(statement.name.text, {
-          declarations: [statement],
-          valueDeclaration: statement.kind === Node.Var ? statement : undefined,
-        });
+        symbol.declarations.push(declaration);
+        if (declaration.kind === Node.Var) {
+          symbol.valueDeclaration = declaration;
+        }
       }
+    } else {
+      locals.set(declaration.name.text, {
+        declarations: [declaration],
+        valueDeclaration:
+          declaration.kind === Node.Var ? declaration : undefined,
+      });
     }
   }
 }

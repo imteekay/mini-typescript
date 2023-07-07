@@ -78,7 +78,6 @@ export type Assignment = Location & {
 
 export type Statement =
   | ExpressionStatement
-  | Var
   | TypeAlias
   | EmptyStatement
   | VariableStatement;

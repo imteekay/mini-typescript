@@ -6,6 +6,7 @@ import {
   Expression,
   Identifier,
   TypeAlias,
+  Var,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
@@ -27,24 +28,10 @@ export function check(module: Module) {
     switch (statement.kind) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
-      case Node.Var:
-        const i = checkExpression(statement.init);
-        if (!statement.typename) {
-          return i;
-        }
-        const t = checkType(statement.typename);
-        if (t !== i && t !== errorType)
-          error(
-            statement.init.pos,
-            `Cannot assign initialiser of type '${typeToString(
-              i,
-            )}' to variable with declared type '${typeToString(t)}'.`,
-          );
-        return t;
       case Node.TypeAlias:
         return checkType(statement.typename);
       case Node.VariableStatement:
-        statement.declarationList.declarations.forEach(checkStatement);
+        statement.declarationList.declarations.forEach(checkVarDeclaration);
         return anyType;
       case Node.EmptyStatement:
         return empty;
@@ -56,7 +43,9 @@ export function check(module: Module) {
       case Node.Identifier:
         const symbol = resolve(module.locals, expression.text, Node.Var);
         if (symbol) {
-          return checkStatement(symbol.valueDeclaration!);
+          return symbol?.valueDeclaration?.kind === Node.Var
+            ? checkVarDeclaration(symbol.valueDeclaration!)
+            : checkStatement(symbol.valueDeclaration!);
         }
         error(expression.pos, 'Could not resolve ' + expression.text);
         return errorType;
@@ -76,6 +65,22 @@ export function check(module: Module) {
           );
         return t;
     }
+  }
+
+  function checkVarDeclaration(varDeclaration: Var) {
+    const initType = checkExpression(varDeclaration.init);
+    if (!varDeclaration.typename) {
+      return initType;
+    }
+    const type = checkType(varDeclaration.typename);
+    if (type !== initType && type !== errorType)
+      error(
+        varDeclaration.init.pos,
+        `Cannot assign initialiser of type '${typeToString(
+          initType,
+        )}' to variable with declared type '${typeToString(type)}'.`,
+      );
+    return type;
   }
 
   function checkType(name: Identifier): Type {
