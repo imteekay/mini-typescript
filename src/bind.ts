@@ -28,7 +28,7 @@ export function bind(m: Module) {
         } else {
           symbol.declarations.push(statement);
           if ([Node.Var, Node.Let].includes(statement.kind)) {
-            symbol.valueDeclaration = statement;
+            symbol.valueDeclaration ||= statement;
           }
         }
       } else {
