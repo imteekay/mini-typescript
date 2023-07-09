@@ -66,7 +66,7 @@ export function check(module: Module) {
             `Block-scoped variable '${expression.text}' used before its declaration.`,
           );
 
-          return errorType;
+          return checkStatement(symbol.valueDeclaration!);
         }
 
         if (symbol?.valueDeclaration?.kind === Node.Var) {
