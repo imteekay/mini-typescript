@@ -116,6 +116,7 @@ export type Declaration = Var | Let | TypeAlias; // plus others, like function
 export type Symbol = {
   valueDeclaration: Declaration | undefined;
   declarations: Declaration[];
+  flags: SymbolFlags;
 };
 
 export type Table = Map<string, Symbol>;
@@ -141,4 +142,10 @@ type CompilerTarget = 'es5' | 'es2015' | 'es2017' | 'es2022';
 
 export interface CompilerOptions {
   target: CompilerTarget;
+}
+
+export const enum SymbolFlags {
+  None = 0,
+  Value = 1 << 1,
+  Type = 1 << 2,
 }

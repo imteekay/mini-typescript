@@ -1,4 +1,11 @@
-import { Declaration, Module, Node, Statement, Table } from './types';
+import {
+  Declaration,
+  Module,
+  Node,
+  Statement,
+  SymbolFlags,
+  Table,
+} from './types';
 import { error } from './error';
 
 export function bind(m: Module) {
@@ -12,6 +19,7 @@ export function bind(m: Module) {
       statement.kind === Node.TypeAlias ||
       statement.kind === Node.Let
     ) {
+      const isValue = isVariableDeclaration(statement.kind);
       const symbol = locals.get(statement.name.text);
       if (symbol) {
         const other = symbol.declarations.find(
@@ -27,19 +35,23 @@ export function bind(m: Module) {
           );
         } else {
           symbol.declarations.push(statement);
-          if ([Node.Var, Node.Let].includes(statement.kind)) {
+          if (isValue) {
             symbol.valueDeclaration ||= statement;
+            symbol.flags |= SymbolFlags.Value;
           }
         }
       } else {
         locals.set(statement.name.text, {
           declarations: [statement],
-          valueDeclaration: [Node.Var, Node.Let].includes(statement.kind)
-            ? statement
-            : undefined,
+          valueDeclaration: isValue ? statement : undefined,
+          flags: isValue ? SymbolFlags.Value : SymbolFlags.Type,
         });
       }
     }
+  }
+
+  function isVariableDeclaration(kind: Statement['kind']) {
+    return [Node.Var, Node.Let].includes(kind);
   }
 
   function hasEqualKindButNotVar(
@@ -64,20 +76,9 @@ export function bind(m: Module) {
   }
 }
 
-export enum Meaning {
-  Value,
-  Type,
-}
-
-export function resolve(locals: Table, name: string, meaning: Meaning) {
+export function resolve(locals: Table, name: string, meaning: SymbolFlags) {
   const symbol = locals.get(name);
-  if (
-    symbol?.declarations.some((d) =>
-      meaning === Meaning.Value
-        ? [Node.Var, Node.Let].includes(d.kind)
-        : d.kind === Node.TypeAlias,
-    )
-  ) {
+  if (symbol && symbol.flags & meaning) {
     return symbol;
   }
 }

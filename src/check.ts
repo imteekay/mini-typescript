@@ -6,9 +6,10 @@ import {
   Expression,
   Identifier,
   TypeAlias,
+  SymbolFlags,
 } from './types';
 import { error } from './error';
-import { Meaning, resolve } from './bind';
+import { resolve } from './bind';
 
 const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
@@ -51,10 +52,11 @@ export function check(module: Module) {
   function checkExpression(expression: Expression): Type {
     switch (expression.kind) {
       case Node.Identifier:
-        const resolveExpression = (meaning: Meaning) =>
-          resolve(module.locals, expression.text, meaning);
-
-        const symbol = resolveExpression(Meaning.Value);
+        const symbol = resolve(
+          module.locals,
+          expression.text,
+          SymbolFlags.Value,
+        );
 
         if (symbol?.valueDeclaration?.kind === Node.Let) {
           if (symbol.valueDeclaration.pos < expression.pos) {
@@ -100,7 +102,7 @@ export function check(module: Module) {
       case 'number':
         return numberType;
       default:
-        const symbol = resolve(module.locals, name.text, Meaning.Type);
+        const symbol = resolve(module.locals, name.text, SymbolFlags.Type);
         if (symbol) {
           return checkType(
             (
