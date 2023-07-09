@@ -42,7 +42,7 @@ npm run mtsc ./tests/singleVar.ts
 - [x] Add support for the lexer to report errors
   - report unterminated string literal error
 - [x] Add let (https://github.com/imteekay/mini-typescript/pull/8).
-  - [ ] Make sure the binder resolves variables declared with `var` and `let` the same way. The simplest way is to add a `kind` property to `Symbol`.
+  - [x] Make sure the binder resolves variables declared with `var` and `let` the same way. The simplest way is to add a `kind` property to `Symbol`.
   - [x] Add use-before-declaration errors in the checker.
   - [x] Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
 - [ ] Allow var to have multiple declarations.
