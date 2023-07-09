@@ -4,10 +4,12 @@
       {
         "kind": "Var",
         "pos": 3
-      },
+      }
+    ],
+    "y": [
       {
-        "kind": "Var",
-        "pos": 14
+        "kind": "Let",
+        "pos": 25
       }
     ]
   },
@@ -24,10 +26,32 @@
       }
     },
     {
-      "kind": "Var",
+      "kind": "Let",
       "name": {
         "kind": "Identifier",
         "text": "x"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 2
+      }
+    },
+    {
+      "kind": "Let",
+      "name": {
+        "kind": "Identifier",
+        "text": "y"
+      },
+      "init": {
+        "kind": "NumericLiteral",
+        "value": 1
+      }
+    },
+    {
+      "kind": "Var",
+      "name": {
+        "kind": "Identifier",
+        "text": "y"
       },
       "init": {
         "kind": "NumericLiteral",

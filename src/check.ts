@@ -6,6 +6,7 @@ import {
   Expression,
   Identifier,
   TypeAlias,
+  SymbolFlags,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
@@ -27,6 +28,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.Var:
+      case Node.Let:
         const i = checkExpression(statement.init);
         if (!statement.typename) {
           return i;
@@ -50,10 +52,29 @@ export function check(module: Module) {
   function checkExpression(expression: Expression): Type {
     switch (expression.kind) {
       case Node.Identifier:
-        const symbol = resolve(module.locals, expression.text, Node.Var);
-        if (symbol) {
+        const symbol = resolve(
+          module.locals,
+          expression.text,
+          SymbolFlags.Value,
+        );
+
+        if (symbol?.valueDeclaration?.kind === Node.Let) {
+          if (symbol.valueDeclaration.pos < expression.pos) {
+            return checkStatement(symbol.valueDeclaration!);
+          }
+
+          error(
+            expression.pos,
+            `Block-scoped variable '${expression.text}' used before its declaration.`,
+          );
+
           return checkStatement(symbol.valueDeclaration!);
         }
+
+        if (symbol?.valueDeclaration?.kind === Node.Var) {
+          return checkStatement(symbol.valueDeclaration!);
+        }
+
         error(expression.pos, 'Could not resolve ' + expression.text);
         return errorType;
       case Node.NumericLiteral:
@@ -81,7 +102,7 @@ export function check(module: Module) {
       case 'number':
         return numberType;
       default:
-        const symbol = resolve(module.locals, name.text, Node.TypeAlias);
+        const symbol = resolve(module.locals, name.text, SymbolFlags.Type);
         if (symbol) {
           return checkType(
             (

@@ -1,22 +1,18 @@
 {
   "locals": {
-    "x": [
+    "variable": [
       {
-        "kind": "Var",
+        "kind": "Let",
         "pos": 3
-      },
-      {
-        "kind": "Var",
-        "pos": 14
       }
     ]
   },
   "statements": [
     {
-      "kind": "Var",
+      "kind": "Let",
       "name": {
         "kind": "Identifier",
-        "text": "x"
+        "text": "variable"
       },
       "init": {
         "kind": "NumericLiteral",
@@ -24,14 +20,10 @@
       }
     },
     {
-      "kind": "Var",
-      "name": {
+      "kind": "ExpressionStatement",
+      "expr": {
         "kind": "Identifier",
-        "text": "x"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 2
+        "text": "variable"
       }
     }
   ]

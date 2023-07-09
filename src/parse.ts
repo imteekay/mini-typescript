@@ -75,6 +75,14 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const init = parseExpression();
       return { kind: Node.Var, name, typename, init, pos };
+    } else if (tryParseToken(Token.Let)) {
+      const name = parseIdentifier();
+      const typename = tryParseToken(Token.Colon)
+        ? parseIdentifier()
+        : undefined;
+      parseExpected(Token.Equals);
+      const init = parseExpression();
+      return { kind: Node.Let, name, typename, init, pos };
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();
       parseExpected(Token.Equals);

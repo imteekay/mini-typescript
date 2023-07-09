@@ -1,6 +1,7 @@
 export enum Token {
   Function = 'Function',
   Var = 'Var',
+  Let = 'Let',
   Type = 'Type',
   Return = 'Return',
   Equals = 'Equals',
@@ -30,6 +31,7 @@ export enum Node {
   Assignment,
   ExpressionStatement,
   Var,
+  Let,
   TypeAlias,
   StringLiteral,
   EmptyStatement,
@@ -73,7 +75,12 @@ export type Assignment = Location & {
   value: Expression;
 };
 
-export type Statement = ExpressionStatement | Var | TypeAlias | EmptyStatement;
+export type Statement =
+  | ExpressionStatement
+  | Var
+  | Let
+  | TypeAlias
+  | EmptyStatement;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
@@ -82,6 +89,13 @@ export type ExpressionStatement = Location & {
 
 export type Var = Location & {
   kind: Node.Var;
+  name: Identifier;
+  typename?: Identifier | undefined;
+  init: Expression;
+};
+
+export type Let = Location & {
+  kind: Node.Let;
   name: Identifier;
   typename?: Identifier | undefined;
   init: Expression;
@@ -97,11 +111,12 @@ export type EmptyStatement = {
   kind: Node.EmptyStatement;
 };
 
-export type Declaration = Var | TypeAlias; // plus others, like function
+export type Declaration = Var | Let | TypeAlias; // plus others, like function
 
 export type Symbol = {
   valueDeclaration: Declaration | undefined;
   declarations: Declaration[];
+  flags: SymbolFlags;
 };
 
 export type Table = Map<string, Symbol>;
@@ -121,4 +136,16 @@ export enum CharCodes {
   singleQuote = 39,
   doubleQuote = 34,
   backslash = 92,
+}
+
+type CompilerTarget = 'es5' | 'es2015' | 'es2017' | 'es2022';
+
+export interface CompilerOptions {
+  target: CompilerTarget;
+}
+
+export const enum SymbolFlags {
+  None = 0,
+  Value = 1 << 1,
+  Type = 1 << 2,
 }

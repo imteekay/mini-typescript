@@ -32,6 +32,11 @@ function emitStatement(statement: Statement): string {
       return `var ${statement.name.text}${typestring} = ${emitExpression(
         statement.init,
       )}`;
+    case Node.Let:
+      const typename = statement.typename ? ': ' + statement.name : '';
+      return `let ${statement.name.text}${typename} = ${emitExpression(
+        statement.init,
+      )}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:
