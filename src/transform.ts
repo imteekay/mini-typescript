@@ -30,8 +30,8 @@ function typescript(statements: Statement[]) {
             ...statement,
             declarationList: {
               ...statement.declarationList,
-              declarations: statement.declarationList.declarations.flatMap(
-                (declaration) => [{ ...declaration, typename: undefined }],
+              declarations: statement.declarationList.declarations.map(
+                (declaration) => ({ ...declaration, typename: undefined }),
               ),
             },
           },
@@ -52,18 +52,16 @@ function es2015(statements: Statement[]) {
             ...statement,
             declarationList: {
               ...statement.declarationList,
-              declarations: statement.declarationList.declarations.flatMap(
+              declarations: statement.declarationList.declarations.map(
                 (declaration) =>
                   statement.declarationList.flags &
                   SymbolFlags.BlockScopedVariable
-                    ? [
-                        {
-                          ...declaration,
-                          name: { ...declaration.name, text: 'var' },
-                          typename: undefined,
-                        },
-                      ]
-                    : [declaration],
+                    ? {
+                        ...declaration,
+                        name: { ...declaration.name, text: 'var' },
+                        typename: undefined,
+                      }
+                    : declaration,
               ),
             },
           },
