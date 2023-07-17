@@ -2,148 +2,220 @@
   "locals": {
     "singleQuote": [
       {
-        "kind": "Var",
-        "pos": 3
+        "kind": "VariableDeclaration",
+        "pos": 32
       }
     ],
     "doubleQuote": [
       {
-        "kind": "Var",
-        "pos": 36
+        "kind": "VariableDeclaration",
+        "pos": 65
       }
     ],
     "escapedSingleQuote": [
       {
-        "kind": "Var",
-        "pos": 69
+        "kind": "VariableDeclaration",
+        "pos": 114
       }
     ],
     "escapedDoubleQuote": [
       {
-        "kind": "Var",
-        "pos": 118
+        "kind": "VariableDeclaration",
+        "pos": 163
       }
     ],
     "escapedB": [
       {
-        "kind": "Var",
-        "pos": 167
+        "kind": "VariableDeclaration",
+        "pos": 192
       }
     ],
     "escapedT": [
       {
-        "kind": "Var",
-        "pos": 196
+        "kind": "VariableDeclaration",
+        "pos": 221
       }
     ],
     "escapedN": [
       {
-        "kind": "Var",
-        "pos": 225
+        "kind": "VariableDeclaration",
+        "pos": 250
       }
     ],
     "escapedR": [
       {
-        "kind": "Var",
-        "pos": 254
+        "kind": "VariableDeclaration",
+        "pos": 279
       }
     ]
   },
   "statements": [
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "singleQuote"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "singleQuote",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "singleQuote"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "singleQuote",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "doubleQuote"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "doubleQuote",
-        "isSingleQuote": false
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "doubleQuote"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "doubleQuote",
+              "isSingleQuote": false
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedSingleQuote"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escapedSingle'Quote",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedSingleQuote"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escapedSingle'Quote",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedDoubleQuote"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escapedDouble\"Quote",
-        "isSingleQuote": false
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedDoubleQuote"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escapedDouble\"Quote",
+              "isSingleQuote": false
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedB"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escaped\bB",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedB"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escaped\bB",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedT"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escaped\tT",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedT"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escaped\tT",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedN"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escaped\nN",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedN"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escaped\nN",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     },
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "escapedR"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "escaped\rR",
-        "isSingleQuote": true
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "escapedR"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "escaped\rR",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
       }
     }
   ]

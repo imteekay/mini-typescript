@@ -1,4 +1,4 @@
-import { Statement, Node, CompilerOptions } from './types';
+import { Statement, Node, CompilerOptions, SymbolFlags } from './types';
 
 export function transform(
   statements: Statement[],
@@ -20,13 +20,22 @@ function typescript(statements: Statement[]) {
     switch (statement.kind) {
       case Node.ExpressionStatement:
         return [statement];
-      case Node.Var:
-      case Node.Let:
-        return [{ ...statement, typename: undefined }];
       case Node.TypeAlias:
         return [];
       case Node.EmptyStatement:
         return [statement];
+      case Node.VariableStatement:
+        return [
+          {
+            ...statement,
+            declarationList: {
+              ...statement.declarationList,
+              declarations: statement.declarationList.declarations.map(
+                (declaration) => ({ ...declaration, typename: undefined }),
+              ),
+            },
+          },
+        ];
     }
   }
 }
@@ -37,8 +46,26 @@ function es2015(statements: Statement[]) {
 
   function transformStatement(statement: Statement): Statement[] {
     switch (statement.kind) {
-      case Node.Let:
-        return [{ ...statement, typename: undefined, kind: Node.Var }];
+      case Node.VariableStatement:
+        return [
+          {
+            ...statement,
+            declarationList: {
+              ...statement.declarationList,
+              declarations: statement.declarationList.declarations.map(
+                (declaration) =>
+                  statement.declarationList.flags &
+                  SymbolFlags.BlockScopedVariable
+                    ? {
+                        ...declaration,
+                        name: { ...declaration.name, text: 'var' },
+                        typename: undefined,
+                      }
+                    : declaration,
+              ),
+            },
+          },
+        ];
       default:
         return [statement];
     }

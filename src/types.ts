@@ -10,6 +10,7 @@ export enum Token {
   Newline = 'Newline',
   Semicolon = 'Semicolon',
   Colon = 'Colon',
+  Comma = 'Comma',
   Whitespace = 'Whitespace',
   String = 'String',
   Unknown = 'Unknown',
@@ -35,6 +36,9 @@ export enum Node {
   TypeAlias,
   StringLiteral,
   EmptyStatement,
+  VariableStatement,
+  VariableDeclarationList,
+  VariableDeclaration,
   EndOfFile,
 }
 
@@ -77,14 +81,31 @@ export type Assignment = Location & {
 
 export type Statement =
   | ExpressionStatement
-  | Var
-  | Let
   | TypeAlias
-  | EmptyStatement;
+  | EmptyStatement
+  | VariableStatement;
 
 export type ExpressionStatement = Location & {
   kind: Node.ExpressionStatement;
   expr: Expression;
+};
+
+export type VariableStatement = Location & {
+  kind: Node.VariableStatement;
+  declarationList: VariableDeclarationList;
+};
+
+export type VariableDeclarationList = Location & {
+  kind: Node.VariableDeclarationList;
+  declarations: VariableDeclaration[];
+  flags: NodeFlags;
+};
+
+export type VariableDeclaration = Location & {
+  kind: Node.VariableDeclaration;
+  name: Identifier;
+  typename?: Identifier | undefined;
+  init: Expression;
 };
 
 export type Var = Location & {
@@ -111,10 +132,10 @@ export type EmptyStatement = {
   kind: Node.EmptyStatement;
 };
 
-export type Declaration = Var | Let | TypeAlias; // plus others, like function
+export type Declaration = VariableDeclaration | TypeAlias;
 
 export type Symbol = {
-  valueDeclaration: Declaration | undefined;
+  valueDeclaration: VariableDeclaration | undefined;
   declarations: Declaration[];
   flags: SymbolFlags;
 };
@@ -146,6 +167,12 @@ export interface CompilerOptions {
 
 export const enum SymbolFlags {
   None = 0,
-  Value = 1 << 1,
+  FunctionScopedVariable = 1 << 0, // Variable (var) or parameter
+  BlockScopedVariable = 1 << 1, // A block-scoped variable (let or const)
   Type = 1 << 2,
+}
+
+export const enum NodeFlags {
+  None = 0,
+  Let = 1 << 0,
 }

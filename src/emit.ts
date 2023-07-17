@@ -1,4 +1,4 @@
-import { Statement, Node, Expression } from './types';
+import { Statement, Node, Expression, VariableDeclaration } from './types';
 
 const singleQuoteRegex = /[\\\'\t\v\f\b\r\n]/g;
 const doubleQuoteRegex = /[\\\"\t\v\f\b\r\n]/g;
@@ -27,16 +27,10 @@ function emitStatement(statement: Statement): string {
   switch (statement.kind) {
     case Node.ExpressionStatement:
       return emitExpression(statement.expr);
-    case Node.Var:
-      const typestring = statement.typename ? ': ' + statement.name : '';
-      return `var ${statement.name.text}${typestring} = ${emitExpression(
-        statement.init,
-      )}`;
-    case Node.Let:
-      const typename = statement.typename ? ': ' + statement.name : '';
-      return `let ${statement.name.text}${typename} = ${emitExpression(
-        statement.init,
-      )}`;
+    case Node.VariableStatement:
+      return `var ${statement.declarationList.declarations
+        .map(emitVar)
+        .join(',')}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:
@@ -57,6 +51,13 @@ function emitExpression(expression: Expression): string {
     case Node.Assignment:
       return `${expression.name.text} = ${emitExpression(expression.value)}`;
   }
+}
+
+function emitVar(declaration: VariableDeclaration) {
+  const typestring = declaration.typename ? ': ' + declaration.name : '';
+  return `${declaration.name.text}${typestring} = ${emitExpression(
+    declaration.init,
+  )}`;
 }
 
 function escapeString(string: string, isSingleQuote: boolean) {

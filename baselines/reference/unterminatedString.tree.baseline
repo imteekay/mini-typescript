@@ -2,26 +2,35 @@
   "locals": {
     "unterminatedString": [
       {
-        "kind": "Var",
-        "pos": 3
+        "kind": "VariableDeclaration",
+        "pos": 54
       }
     ]
   },
   "statements": [
     {
-      "kind": "Var",
-      "name": {
-        "kind": "Identifier",
-        "text": "unterminatedString"
-      },
-      "typename": {
-        "kind": "Identifier",
-        "text": "string"
-      },
-      "init": {
-        "kind": "StringLiteral",
-        "value": "unterminatedString;\n",
-        "isSingleQuote": false
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "unterminatedString"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "unterminatedString;\n",
+              "isSingleQuote": false
+            }
+          }
+        },
+        "flags": 0
       }
     }
   ]

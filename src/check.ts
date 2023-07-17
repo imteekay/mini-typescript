@@ -6,7 +6,9 @@ import {
   Expression,
   Identifier,
   TypeAlias,
+  VariableDeclaration,
   SymbolFlags,
+  Symbol,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
@@ -15,6 +17,7 @@ const stringType: Type = { id: 'string' };
 const numberType: Type = { id: 'number' };
 const errorType: Type = { id: 'error' };
 const empty: Type = { id: 'empty' };
+const anyType: Type = { id: 'any' };
 
 function typeToString(type: Type) {
   return type.id;
@@ -27,23 +30,13 @@ export function check(module: Module) {
     switch (statement.kind) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
-      case Node.Var:
-      case Node.Let:
-        const i = checkExpression(statement.init);
-        if (!statement.typename) {
-          return i;
-        }
-        const t = checkType(statement.typename);
-        if (t !== i && t !== errorType)
-          error(
-            statement.init.pos,
-            `Cannot assign initialiser of type '${typeToString(
-              i,
-            )}' to variable with declared type '${typeToString(t)}'.`,
-          );
-        return t;
       case Node.TypeAlias:
         return checkType(statement.typename);
+      case Node.VariableStatement:
+        statement.declarationList.declarations.forEach(
+          checkVariableDeclaration,
+        );
+        return anyType;
       case Node.EmptyStatement:
         return empty;
     }
@@ -55,24 +48,18 @@ export function check(module: Module) {
         const symbol = resolve(
           module.locals,
           expression.text,
-          SymbolFlags.Value,
+          SymbolFlags.FunctionScopedVariable | SymbolFlags.BlockScopedVariable,
         );
 
-        if (symbol?.valueDeclaration?.kind === Node.Let) {
-          if (symbol.valueDeclaration.pos < expression.pos) {
-            return checkStatement(symbol.valueDeclaration!);
+        if (symbol) {
+          if (isBlockScopedVarUsedBeforeItsDeclaration(symbol, expression)) {
+            error(
+              expression.pos,
+              `Block-scoped variable '${expression.text}' used before its declaration.`,
+            );
           }
 
-          error(
-            expression.pos,
-            `Block-scoped variable '${expression.text}' used before its declaration.`,
-          );
-
-          return checkStatement(symbol.valueDeclaration!);
-        }
-
-        if (symbol?.valueDeclaration?.kind === Node.Var) {
-          return checkStatement(symbol.valueDeclaration!);
+          return checkVariableDeclaration(symbol.valueDeclaration!);
         }
 
         error(expression.pos, 'Could not resolve ' + expression.text);
@@ -93,6 +80,30 @@ export function check(module: Module) {
           );
         return t;
     }
+  }
+
+  function isBlockScopedVarUsedBeforeItsDeclaration(
+    symbol: Symbol,
+    expression: Expression,
+  ) {
+    const isBlockScopedVar = symbol.flags & SymbolFlags.BlockScopedVariable;
+    return isBlockScopedVar && symbol.valueDeclaration!.pos > expression.pos;
+  }
+
+  function checkVariableDeclaration(declaration: VariableDeclaration) {
+    const initType = checkExpression(declaration.init);
+    if (!declaration.typename) {
+      return initType;
+    }
+    const type = checkType(declaration.typename);
+    if (type !== initType && type !== errorType)
+      error(
+        declaration.init.pos,
+        `Cannot assign initialiser of type '${typeToString(
+          initType,
+        )}' to variable with declared type '${typeToString(type)}'.`,
+      );
+    return type;
   }
 
   function checkType(name: Identifier): Type {

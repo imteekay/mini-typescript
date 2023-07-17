@@ -1,10 +1,10 @@
 [
   {
-    "pos": 14,
-    "message": "Cannot redeclare x; first declared at 3"
+    "pos": 21,
+    "message": "Cannot redeclare x; first declared at 21"
   },
   {
-    "pos": 36,
-    "message": "Cannot redeclare y; first declared at 25"
+    "pos": 43,
+    "message": "Cannot redeclare y; first declared at 43"
   }
 ]

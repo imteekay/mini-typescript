@@ -6,6 +6,10 @@ import {
   Identifier,
   Expression,
   Module,
+  Var,
+  VariableDeclaration,
+  NodeFlags,
+  VariableStatement,
 } from './types';
 import { error } from './error';
 
@@ -68,21 +72,9 @@ export function parse(lexer: Lexer): Module {
     const pos = lexer.pos();
 
     if (tryParseToken(Token.Var)) {
-      const name = parseIdentifier();
-      const typename = tryParseToken(Token.Colon)
-        ? parseIdentifier()
-        : undefined;
-      parseExpected(Token.Equals);
-      const init = parseExpression();
-      return { kind: Node.Var, name, typename, init, pos };
+      return parseVariableStatement(NodeFlags.None);
     } else if (tryParseToken(Token.Let)) {
-      const name = parseIdentifier();
-      const typename = tryParseToken(Token.Colon)
-        ? parseIdentifier()
-        : undefined;
-      parseExpected(Token.Equals);
-      const init = parseExpression();
-      return { kind: Node.Let, name, typename, init, pos };
+      return parseVariableStatement(NodeFlags.Let);
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();
       parseExpected(Token.Equals);
@@ -92,6 +84,40 @@ export function parse(lexer: Lexer): Module {
       return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
+  }
+
+  function parseVariableStatement(flags: NodeFlags): VariableStatement {
+    const pos = lexer.pos();
+    return {
+      kind: Node.VariableStatement,
+      pos,
+      declarationList: {
+        kind: Node.VariableDeclarationList,
+        declarations: parseVariableDeclarations(),
+        flags,
+        pos,
+      },
+    };
+  }
+
+  function parseVariableDeclarations() {
+    const declarations: VariableDeclaration[] = [];
+    do {
+      const name = parseIdentifier();
+      const typename = tryParseToken(Token.Colon)
+        ? parseIdentifier()
+        : undefined;
+      parseExpected(Token.Equals);
+      const init = parseExpression();
+      declarations.push({
+        kind: Node.VariableDeclaration,
+        name,
+        typename,
+        init,
+        pos: lexer.pos(),
+      });
+    } while (tryParseToken(Token.Comma));
+    return declarations;
   }
 
   function tryParseToken(expected: Token) {

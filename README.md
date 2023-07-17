@@ -45,6 +45,7 @@ npm run mtsc ./tests/singleVar.ts
   - [x] Make sure the binder resolves variables declared with `var` and `let` the same way. The simplest way is to add a `kind` property to `Symbol`.
   - [x] Add use-before-declaration errors in the checker.
   - [x] Finally, add an ES2015 -> ES5 transform that transforms `let` to `var`.
+- [x] Allow var statements to declare multiple symbols (https://github.com/imteekay/mini-typescript/pull/9).
 - [ ] Allow var to have multiple declarations.
   - You'll need to convert a Symbol's declaration into a list.
   - Check that all declarations have the same type.

@@ -2,8 +2,8 @@
   "locals": {
     "variable": [
       {
-        "kind": "Let",
-        "pos": 13
+        "kind": "VariableDeclaration",
+        "pos": 27
       }
     ]
   },
@@ -16,14 +16,23 @@
       }
     },
     {
-      "kind": "Let",
-      "name": {
-        "kind": "Identifier",
-        "text": "variable"
-      },
-      "init": {
-        "kind": "NumericLiteral",
-        "value": 1
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "variable"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 1
+            }
+          }
+        },
+        "flags": 1
       }
     }
   ]

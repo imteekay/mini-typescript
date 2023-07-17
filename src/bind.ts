@@ -1,10 +1,12 @@
 import {
-  Declaration,
   Module,
   Node,
+  NodeFlags,
   Statement,
   SymbolFlags,
   Table,
+  TypeAlias,
+  VariableDeclaration,
 } from './types';
 import { error } from './error';
 
@@ -14,65 +16,96 @@ export function bind(m: Module) {
   }
 
   function bindStatement(locals: Table, statement: Statement) {
-    if (
-      statement.kind === Node.Var ||
-      statement.kind === Node.TypeAlias ||
-      statement.kind === Node.Let
-    ) {
-      const isValue = isVariableDeclaration(statement.kind);
-      const symbol = locals.get(statement.name.text);
-      if (symbol) {
-        const other = symbol.declarations.find(
-          (d) =>
-            hasEqualKindButNotVar(d, statement) ||
-            willRedeclareVarWithLet(d, statement) ||
-            willRedeclareLetWithVar(d, statement),
-        );
-        if (other) {
-          error(
-            statement.pos,
-            `Cannot redeclare ${statement.name.text}; first declared at ${other.pos}`,
-          );
-        } else {
-          symbol.declarations.push(statement);
-          if (isValue) {
-            symbol.valueDeclaration ||= statement;
-            symbol.flags |= SymbolFlags.Value;
-          }
-        }
-      } else {
-        locals.set(statement.name.text, {
-          declarations: [statement],
-          valueDeclaration: isValue ? statement : undefined,
-          flags: isValue ? SymbolFlags.Value : SymbolFlags.Type,
-        });
-      }
+    if (statement.kind === Node.VariableStatement) {
+      statement.declarationList.declarations.forEach((declaration) =>
+        bindSymbol(locals, declaration, statement.declarationList.flags),
+      );
+    }
+
+    if (statement.kind === Node.TypeAlias) {
+      bindTypeSymbol(locals, statement);
     }
   }
 
-  function isVariableDeclaration(kind: Statement['kind']) {
-    return [Node.Var, Node.Let].includes(kind);
+  function bindTypeSymbol(locals: Table, declaration: TypeAlias) {
+    const symbol = locals.get(declaration.name.text);
+    if (symbol) {
+      const other = symbol.declarations.find(
+        (d) => d.kind === declaration.kind,
+      );
+      if (other) {
+        error(
+          declaration.pos,
+          `Cannot redeclare ${declaration.name.text}; first declared at ${other.pos}`,
+        );
+      } else {
+        symbol.declarations.push(declaration);
+      }
+    } else {
+      locals.set(declaration.name.text, {
+        declarations: [declaration],
+        valueDeclaration: undefined,
+        flags: SymbolFlags.Type,
+      });
+    }
   }
 
-  function hasEqualKindButNotVar(
-    declaration: Declaration,
-    statement: Statement,
+  function bindSymbol(
+    locals: Table,
+    declaration: VariableDeclaration,
+    flags: NodeFlags,
   ) {
-    return declaration.kind === statement.kind && statement.kind !== Node.Var;
+    const symbol = locals.get(declaration.name.text);
+    const isLet = flags & NodeFlags.Let;
+    if (symbol) {
+      const hasOther =
+        willRedeclareLet(flags, symbol.flags) ||
+        willRedeclareVarWithLet(flags, symbol.flags) ||
+        willRedeclareLetWithVar(flags, symbol.flags);
+      if (hasOther) {
+        error(
+          declaration.pos,
+          `Cannot redeclare ${declaration.name.text}; first declared at ${declaration.pos}`,
+        );
+      } else {
+        symbol.declarations.push(declaration);
+        symbol.valueDeclaration = declaration;
+        symbol.flags |= isLet
+          ? SymbolFlags.BlockScopedVariable
+          : SymbolFlags.FunctionScopedVariable;
+      }
+    } else {
+      locals.set(declaration.name.text, {
+        declarations: [declaration],
+        valueDeclaration: declaration,
+        flags: isLet
+          ? SymbolFlags.BlockScopedVariable
+          : SymbolFlags.FunctionScopedVariable,
+      });
+    }
+  }
+
+  function willRedeclareLet(nodeFlags: NodeFlags, symbolFlags: SymbolFlags) {
+    return (
+      nodeFlags & NodeFlags.Let && symbolFlags & SymbolFlags.BlockScopedVariable
+    );
   }
 
   function willRedeclareVarWithLet(
-    declaration: Declaration,
-    statement: Statement,
+    nodeFlags: NodeFlags,
+    symbolFlags: SymbolFlags,
   ) {
-    return declaration.kind === Node.Var && statement.kind === Node.Let;
+    return (
+      nodeFlags & NodeFlags.Let &&
+      symbolFlags & SymbolFlags.FunctionScopedVariable
+    );
   }
 
   function willRedeclareLetWithVar(
-    declaration: Declaration,
-    statement: Statement,
+    nodeFlags: NodeFlags,
+    symbolFlags: SymbolFlags,
   ) {
-    return declaration.kind === Node.Let && statement.kind === Node.Var;
+    return !nodeFlags && symbolFlags & SymbolFlags.BlockScopedVariable;
   }
 }
 
