@@ -1,9 +1,9 @@
 {
   "locals": {
-    "arthurTwoShedsJackson": [
+    "variable": [
       {
         "kind": "VariableDeclaration",
-        "pos": 30
+        "pos": 17
       }
     ]
   },
@@ -17,7 +17,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "arthurTwoShedsJackson"
+              "text": "variable"
             },
             "init": {
               "kind": "NumericLiteral",
@@ -25,21 +25,14 @@
             }
           }
         },
-        "flags": 0
+        "flags": 1
       }
     },
     {
       "kind": "ExpressionStatement",
       "expr": {
-        "kind": "Assignment",
-        "name": {
-          "kind": "Identifier",
-          "text": "arthurTwoShedsJackson"
-        },
-        "value": {
-          "kind": "NumericLiteral",
-          "value": 2
-        }
+        "kind": "Identifier",
+        "text": "variable"
       }
     }
   ]

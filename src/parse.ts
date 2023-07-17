@@ -7,6 +7,9 @@ import {
   Expression,
   Module,
   Var,
+  VariableDeclaration,
+  NodeFlags,
+  VariableStatement,
 } from './types';
 import { error } from './error';
 
@@ -69,15 +72,9 @@ export function parse(lexer: Lexer): Module {
     const pos = lexer.pos();
 
     if (tryParseToken(Token.Var)) {
-      return {
-        kind: Node.VariableStatement,
-        pos,
-        declarationList: {
-          kind: Node.VariableDeclarationList,
-          declarations: parseVariableDeclarations(),
-          pos,
-        },
-      };
+      return parseVariableStatement(NodeFlags.None);
+    } else if (tryParseToken(Token.Let)) {
+      return parseVariableStatement(NodeFlags.Let);
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();
       parseExpected(Token.Equals);
@@ -89,8 +86,22 @@ export function parse(lexer: Lexer): Module {
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
   }
 
+  function parseVariableStatement(flags: NodeFlags): VariableStatement {
+    const pos = lexer.pos();
+    return {
+      kind: Node.VariableStatement,
+      pos,
+      declarationList: {
+        kind: Node.VariableDeclarationList,
+        declarations: parseVariableDeclarations(),
+        flags,
+        pos,
+      },
+    };
+  }
+
   function parseVariableDeclarations() {
-    const declarations: Var[] = [];
+    const declarations: VariableDeclaration[] = [];
     do {
       const name = parseIdentifier();
       const typename = tryParseToken(Token.Colon)
@@ -99,7 +110,7 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const init = parseExpression();
       declarations.push({
-        kind: Node.Var,
+        kind: Node.VariableDeclaration,
         name,
         typename,
         init,

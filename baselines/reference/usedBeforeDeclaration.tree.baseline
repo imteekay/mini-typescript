@@ -1,13 +1,20 @@
 {
   "locals": {
-    "arthurTwoShedsJackson": [
+    "variable": [
       {
         "kind": "VariableDeclaration",
-        "pos": 30
+        "pos": 27
       }
     ]
   },
   "statements": [
+    {
+      "kind": "ExpressionStatement",
+      "expr": {
+        "kind": "Identifier",
+        "text": "variable"
+      }
+    },
     {
       "kind": "VariableStatement",
       "declarationList": {
@@ -17,7 +24,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "arthurTwoShedsJackson"
+              "text": "variable"
             },
             "init": {
               "kind": "NumericLiteral",
@@ -25,21 +32,7 @@
             }
           }
         },
-        "flags": 0
-      }
-    },
-    {
-      "kind": "ExpressionStatement",
-      "expr": {
-        "kind": "Assignment",
-        "name": {
-          "kind": "Identifier",
-          "text": "arthurTwoShedsJackson"
-        },
-        "value": {
-          "kind": "NumericLiteral",
-          "value": 2
-        }
+        "flags": 1
       }
     }
   ]

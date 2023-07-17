@@ -2,49 +2,49 @@
   "locals": {
     "singleQuote": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 32
       }
     ],
     "doubleQuote": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 65
       }
     ],
     "escapedSingleQuote": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 114
       }
     ],
     "escapedDoubleQuote": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 163
       }
     ],
     "escapedB": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 192
       }
     ],
     "escapedT": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 221
       }
     ],
     "escapedN": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 250
       }
     ],
     "escapedR": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 279
       }
     ]
@@ -56,7 +56,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "singleQuote"
@@ -67,7 +67,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -76,7 +77,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "doubleQuote"
@@ -87,7 +88,8 @@
               "isSingleQuote": false
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -96,7 +98,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedSingleQuote"
@@ -107,7 +109,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -116,7 +119,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedDoubleQuote"
@@ -127,7 +130,8 @@
               "isSingleQuote": false
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -136,7 +140,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedB"
@@ -147,7 +151,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -156,7 +161,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedT"
@@ -167,7 +172,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -176,7 +182,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedN"
@@ -187,7 +193,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -196,7 +203,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "escapedR"
@@ -207,7 +214,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     }
   ]

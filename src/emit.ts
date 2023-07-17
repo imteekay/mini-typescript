@@ -1,4 +1,4 @@
-import { Statement, Node, Expression, Var } from './types';
+import { Statement, Node, Expression, VariableDeclaration } from './types';
 
 const singleQuoteRegex = /[\\\'\t\v\f\b\r\n]/g;
 const doubleQuoteRegex = /[\\\"\t\v\f\b\r\n]/g;
@@ -53,10 +53,10 @@ function emitExpression(expression: Expression): string {
   }
 }
 
-function emitVar(varDeclaration: Var) {
-  const typestring = varDeclaration.typename ? ': ' + varDeclaration.name : '';
-  return `${varDeclaration.name.text}${typestring} = ${emitExpression(
-    varDeclaration.init,
+function emitVar(declaration: VariableDeclaration) {
+  const typestring = declaration.typename ? ': ' + declaration.name : '';
+  return `${declaration.name.text}${typestring} = ${emitExpression(
+    declaration.init,
   )}`;
 }
 

@@ -2,7 +2,7 @@
   "locals": {
     "s": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 18
       }
     ]
@@ -14,7 +14,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "s"
@@ -28,7 +28,8 @@
               "value": 1
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {

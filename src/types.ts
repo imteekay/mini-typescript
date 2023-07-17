@@ -1,6 +1,7 @@
 export enum Token {
   Function = 'Function',
   Var = 'Var',
+  Let = 'Let',
   Type = 'Type',
   Return = 'Return',
   Equals = 'Equals',
@@ -31,11 +32,13 @@ export enum Node {
   Assignment,
   ExpressionStatement,
   Var,
+  Let,
   TypeAlias,
   StringLiteral,
   EmptyStatement,
   VariableStatement,
   VariableDeclarationList,
+  VariableDeclaration,
   EndOfFile,
 }
 
@@ -94,11 +97,26 @@ export type VariableStatement = Location & {
 
 export type VariableDeclarationList = Location & {
   kind: Node.VariableDeclarationList;
-  declarations: Var[];
+  declarations: VariableDeclaration[];
+  flags: NodeFlags;
+};
+
+export type VariableDeclaration = Location & {
+  kind: Node.VariableDeclaration;
+  name: Identifier;
+  typename?: Identifier | undefined;
+  init: Expression;
 };
 
 export type Var = Location & {
   kind: Node.Var;
+  name: Identifier;
+  typename?: Identifier | undefined;
+  init: Expression;
+};
+
+export type Let = Location & {
+  kind: Node.Let;
   name: Identifier;
   typename?: Identifier | undefined;
   init: Expression;
@@ -114,11 +132,12 @@ export type EmptyStatement = {
   kind: Node.EmptyStatement;
 };
 
-export type Declaration = Var | TypeAlias; // plus others, like function
+export type Declaration = VariableDeclaration | TypeAlias;
 
 export type Symbol = {
-  valueDeclaration: Declaration | undefined;
+  valueDeclaration: VariableDeclaration | undefined;
   declarations: Declaration[];
+  flags: SymbolFlags;
 };
 
 export type Table = Map<string, Symbol>;
@@ -138,4 +157,22 @@ export enum CharCodes {
   singleQuote = 39,
   doubleQuote = 34,
   backslash = 92,
+}
+
+type CompilerTarget = 'es5' | 'es2015' | 'es2017' | 'es2022';
+
+export interface CompilerOptions {
+  target: CompilerTarget;
+}
+
+export const enum SymbolFlags {
+  None = 0,
+  FunctionScopedVariable = 1 << 0, // Variable (var) or parameter
+  BlockScopedVariable = 1 << 1, // A block-scoped variable (let or const)
+  Type = 1 << 2,
+}
+
+export const enum NodeFlags {
+  None = 0,
+  Let = 1 << 0,
 }

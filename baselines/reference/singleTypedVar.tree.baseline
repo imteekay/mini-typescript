@@ -2,13 +2,13 @@
   "locals": {
     "s": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 18
       }
     ],
     "n": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 42
       }
     ]
@@ -20,7 +20,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "s"
@@ -34,7 +34,8 @@
               "value": 1
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -43,7 +44,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "n"
@@ -58,7 +59,8 @@
               "isSingleQuote": true
             }
           }
-        }
+        },
+        "flags": 0
       }
     }
   ]

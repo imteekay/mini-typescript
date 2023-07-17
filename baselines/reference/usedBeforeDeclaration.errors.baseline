@@ -1,0 +1,6 @@
+[
+  {
+    "pos": 8,
+    "message": "Block-scoped variable 'variable' used before its declaration."
+  }
+]

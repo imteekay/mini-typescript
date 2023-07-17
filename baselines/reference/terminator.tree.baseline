@@ -2,19 +2,19 @@
   "locals": {
     "x": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 10
       }
     ],
     "y": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 21
       }
     ],
     "z": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 32
       }
     ]
@@ -26,7 +26,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "x"
@@ -36,7 +36,8 @@
               "value": 1
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -45,7 +46,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "y"
@@ -55,7 +56,8 @@
               "value": 2
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {
@@ -64,7 +66,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "z"
@@ -74,7 +76,8 @@
               "value": 3
             }
           }
-        }
+        },
+        "flags": 0
       }
     },
     {

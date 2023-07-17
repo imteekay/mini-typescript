@@ -2,7 +2,7 @@
   "locals": {
     "unterminatedString": [
       {
-        "kind": "Var",
+        "kind": "VariableDeclaration",
         "pos": 54
       }
     ]
@@ -14,7 +14,7 @@
         "kind": "VariableDeclarationList",
         "declarations": {
           "0": {
-            "kind": "Var",
+            "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
               "text": "unterminatedString"
@@ -29,7 +29,8 @@
               "isSingleQuote": false
             }
           }
-        }
+        },
+        "flags": 0
       }
     }
   ]
