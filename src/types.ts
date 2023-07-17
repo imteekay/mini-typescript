@@ -13,6 +13,8 @@ export enum Token {
   Comma = 'Comma',
   Whitespace = 'Whitespace',
   String = 'String',
+  OpenBrace = 'OpenBrace',
+  CloseBrace = 'CloseBrace',
   Unknown = 'Unknown',
   BOF = 'BOF',
   EOF = 'EOF',
@@ -34,6 +36,7 @@ export enum Node {
   Var,
   Let,
   TypeAlias,
+  TypeLiteral,
   StringLiteral,
   EmptyStatement,
   VariableStatement,
@@ -126,6 +129,23 @@ export type TypeAlias = Location & {
   kind: Node.TypeAlias;
   name: Identifier;
   typename: Identifier;
+};
+
+type TypeReference = Location & {
+  name: Identifier;
+};
+
+type PropertySignature = Location & {
+  name: Identifier;
+  type: Identifier | TypeReference;
+};
+
+// Added it to member as it's possible to have other types of members. e.g. method signature
+type Member = PropertySignature;
+
+export type TypeLiteral = Location & {
+  kind: Node.TypeLiteral;
+  members: Member[];
 };
 
 export type EmptyStatement = {
