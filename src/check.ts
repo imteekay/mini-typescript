@@ -8,6 +8,7 @@ import {
   TypeAlias,
   VariableDeclaration,
   SymbolFlags,
+  Symbol,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
@@ -51,13 +52,11 @@ export function check(module: Module) {
         );
 
         if (symbol) {
-          if (symbol.flags & SymbolFlags.BlockScopedVariable) {
-            if (symbol.valueDeclaration!.pos > expression.pos) {
-              error(
-                expression.pos,
-                `Block-scoped variable '${expression.text}' used before its declaration.`,
-              );
-            }
+          if (isBlockScopedVarUsedBeforeItsDeclaration(symbol, expression)) {
+            error(
+              expression.pos,
+              `Block-scoped variable '${expression.text}' used before its declaration.`,
+            );
           }
 
           return checkVariableDeclaration(symbol.valueDeclaration!);
@@ -81,6 +80,14 @@ export function check(module: Module) {
           );
         return t;
     }
+  }
+
+  function isBlockScopedVarUsedBeforeItsDeclaration(
+    symbol: Symbol,
+    expression: Expression,
+  ) {
+    const isBlockScopedVar = symbol.flags & SymbolFlags.BlockScopedVariable;
+    return isBlockScopedVar && symbol.valueDeclaration!.pos > expression.pos;
   }
 
   function checkVariableDeclaration(declaration: VariableDeclaration) {
