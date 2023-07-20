@@ -80,7 +80,7 @@ export function parse(lexer: Lexer): Module {
       parseExpected(Token.Equals);
       const typename = parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
-    } else if (lexer.token() === Token.Semicolon) {
+    } else if (tryParseToken(Token.Semicolon)) {
       return { kind: Node.EmptyStatement };
     }
     return { kind: Node.ExpressionStatement, expr: parseExpression(), pos };
