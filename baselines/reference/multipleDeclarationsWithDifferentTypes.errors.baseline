@@ -1,0 +1,14 @@
+[
+  {
+    "pos": 87,
+    "message": "Subsequent variable declarations must have the same type. Variable 'var2' must be of type 'number', but here has type 'string'."
+  },
+  {
+    "pos": 137,
+    "message": "Subsequent variable declarations must have the same type. Variable 'var3' must be of type 'string', but here has type 'number'."
+  },
+  {
+    "pos": 198,
+    "message": "Subsequent variable declarations must have the same type. Variable 'var4' must be of type 'string', but here has type 'number'."
+  }
+]

@@ -1,0 +1,343 @@
+{
+  "locals": {
+    "var1": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 18
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 45
+      }
+    ],
+    "var2": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 68
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 87
+      }
+    ],
+    "var3": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 115
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 137
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 156
+      }
+    ],
+    "var4": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 176
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 198
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 225
+      }
+    ],
+    "var5": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 245
+      }
+    ],
+    "var6": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 273
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var2"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 2
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var2"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var3"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var3"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 2
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var3"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var4"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var4"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 2
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var4"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var5"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var6"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    }
+  ]
+}

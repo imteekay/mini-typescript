@@ -92,9 +92,52 @@ export function check(module: Module) {
 
   function checkVariableDeclaration(declaration: VariableDeclaration) {
     const initType = checkExpression(declaration.init);
+    const symbol = resolve(
+      module.locals,
+      declaration.name.text,
+      SymbolFlags.FunctionScopedVariable,
+    );
+
+    if (symbol && declaration !== symbol.valueDeclaration) {
+      const valueDeclarationType = checkVariableDeclarationType(
+        symbol.valueDeclaration!,
+      );
+
+      if (!declaration.typename) {
+        if (valueDeclarationType !== initType) {
+          error(
+            declaration.pos,
+            `Subsequent variable declarations must have the same type. Variable '${
+              declaration.name.text
+            }' must be of type '${typeToString(
+              valueDeclarationType,
+            )}', but here has type '${typeToString(initType)}'.`,
+          );
+        }
+
+        return initType;
+      }
+
+      const type = checkType(declaration.typename);
+
+      if (valueDeclarationType !== type) {
+        error(
+          declaration.pos,
+          `Subsequent variable declarations must have the same type. Variable '${
+            declaration.name.text
+          }' must be of type '${typeToString(
+            valueDeclarationType,
+          )}', but here has type '${typeToString(type)}'.`,
+        );
+      }
+
+      return type;
+    }
+
     if (!declaration.typename) {
       return initType;
     }
+
     const type = checkType(declaration.typename);
     if (type !== initType && type !== errorType)
       error(
@@ -104,6 +147,12 @@ export function check(module: Module) {
         )}' to variable with declared type '${typeToString(type)}'.`,
       );
     return type;
+  }
+
+  function checkVariableDeclarationType(declaration: VariableDeclaration) {
+    return declaration.typename
+      ? checkType(declaration.typename)
+      : checkExpression(declaration.init);
   }
 
   function checkType(name: Identifier): Type {
