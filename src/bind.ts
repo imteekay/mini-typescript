@@ -69,7 +69,7 @@ export function bind(m: Module) {
         );
       } else {
         symbol.declarations.push(declaration);
-        symbol.valueDeclaration = declaration;
+        symbol.valueDeclaration ||= declaration;
         symbol.flags |= isLet
           ? SymbolFlags.BlockScopedVariable
           : SymbolFlags.FunctionScopedVariable;
