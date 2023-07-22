@@ -103,33 +103,15 @@ export function check(module: Module) {
         symbol.valueDeclaration!,
       );
 
-      if (!declaration.typename) {
-        if (valueDeclarationType !== initType) {
-          error(
-            declaration.pos,
-            `Subsequent variable declarations must have the same type. Variable '${
-              declaration.name.text
-            }' must be of type '${typeToString(
-              valueDeclarationType,
-            )}', but here has type '${typeToString(initType)}'.`,
-          );
-        }
+      const type = declaration.typename
+        ? checkType(declaration.typename)
+        : initType;
 
-        return initType;
-      }
-
-      const type = checkType(declaration.typename);
-
-      if (valueDeclarationType !== type) {
-        error(
-          declaration.pos,
-          `Subsequent variable declarations must have the same type. Variable '${
-            declaration.name.text
-          }' must be of type '${typeToString(
-            valueDeclarationType,
-          )}', but here has type '${typeToString(type)}'.`,
-        );
-      }
+      handleSubsequentVariableDeclarationsTypes(
+        declaration,
+        valueDeclarationType,
+        type,
+      );
 
       return type;
     }
@@ -174,6 +156,23 @@ export function check(module: Module) {
         }
         error(name.pos, 'Could not resolve type ' + name.text);
         return errorType;
+    }
+  }
+
+  function handleSubsequentVariableDeclarationsTypes(
+    declaration: VariableDeclaration,
+    valueDeclarationType: Type,
+    declarationType: Type,
+  ) {
+    if (valueDeclarationType !== declarationType) {
+      error(
+        declaration.pos,
+        `Subsequent variable declarations must have the same type. Variable '${
+          declaration.name.text
+        }' must be of type '${typeToString(
+          valueDeclarationType,
+        )}', but here has type '${typeToString(declarationType)}'.`,
+      );
     }
   }
 }
