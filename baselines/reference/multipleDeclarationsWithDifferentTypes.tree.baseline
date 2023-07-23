@@ -1,63 +1,59 @@
 {
   "locals": {
-    "var1": [
+    "s": [
       {
         "kind": "VariableDeclaration",
-        "pos": 18
-      },
-      {
-        "kind": "VariableDeclaration",
-        "pos": 45
+        "pos": 15
       }
     ],
-    "var2": [
+    "s1": [
       {
         "kind": "VariableDeclaration",
-        "pos": 68
-      },
-      {
-        "kind": "VariableDeclaration",
-        "pos": 87
+        "pos": 41
       }
     ],
-    "var3": [
+    "s2": [
       {
         "kind": "VariableDeclaration",
-        "pos": 115
+        "pos": 59
       },
       {
         "kind": "VariableDeclaration",
-        "pos": 137
-      },
-      {
-        "kind": "VariableDeclaration",
-        "pos": 156
+        "pos": 84
       }
     ],
-    "var4": [
+    "s3": [
       {
         "kind": "VariableDeclaration",
-        "pos": 176
+        "pos": 105
       },
       {
         "kind": "VariableDeclaration",
-        "pos": 198
+        "pos": 122
+      }
+    ],
+    "s4": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 148
       },
       {
         "kind": "VariableDeclaration",
-        "pos": 225
-      }
-    ],
-    "var5": [
+        "pos": 168
+      },
       {
         "kind": "VariableDeclaration",
-        "pos": 245
+        "pos": 185
       }
     ],
-    "var6": [
+    "s5": [
       {
         "kind": "VariableDeclaration",
-        "pos": 273
+        "pos": 203
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 223
       }
     ]
   },
@@ -71,7 +67,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var1"
+              "text": "s"
             },
             "init": {
               "kind": "StringLiteral",
@@ -92,7 +88,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var1"
+              "text": "s1"
             },
             "typename": {
               "kind": "Identifier",
@@ -117,7 +113,53 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var2"
+              "text": "s2"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "s2"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "s3"
             },
             "typename": {
               "kind": "Identifier",
@@ -141,7 +183,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var2"
+              "text": "s3"
             },
             "init": {
               "kind": "StringLiteral",
@@ -162,7 +204,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var3"
+              "text": "s4"
             },
             "typename": {
               "kind": "Identifier",
@@ -187,7 +229,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var3"
+              "text": "s4"
             },
             "typename": {
               "kind": "Identifier",
@@ -211,7 +253,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var3"
+              "text": "s4"
             },
             "init": {
               "kind": "StringLiteral",
@@ -232,7 +274,7 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var4"
+              "text": "s5"
             },
             "init": {
               "kind": "StringLiteral",
@@ -253,86 +295,15 @@
             "kind": "VariableDeclaration",
             "name": {
               "kind": "Identifier",
-              "text": "var4"
+              "text": "s5"
             },
             "typename": {
               "kind": "Identifier",
-              "text": "number"
+              "text": "string"
             },
             "init": {
               "kind": "NumericLiteral",
               "value": 2
-            }
-          }
-        },
-        "flags": 0
-      }
-    },
-    {
-      "kind": "VariableStatement",
-      "declarationList": {
-        "kind": "VariableDeclarationList",
-        "declarations": {
-          "0": {
-            "kind": "VariableDeclaration",
-            "name": {
-              "kind": "Identifier",
-              "text": "var4"
-            },
-            "typename": {
-              "kind": "Identifier",
-              "text": "string"
-            },
-            "init": {
-              "kind": "StringLiteral",
-              "value": "test",
-              "isSingleQuote": true
-            }
-          }
-        },
-        "flags": 0
-      }
-    },
-    {
-      "kind": "VariableStatement",
-      "declarationList": {
-        "kind": "VariableDeclarationList",
-        "declarations": {
-          "0": {
-            "kind": "VariableDeclaration",
-            "name": {
-              "kind": "Identifier",
-              "text": "var5"
-            },
-            "init": {
-              "kind": "StringLiteral",
-              "value": "test",
-              "isSingleQuote": true
-            }
-          }
-        },
-        "flags": 0
-      }
-    },
-    {
-      "kind": "VariableStatement",
-      "declarationList": {
-        "kind": "VariableDeclarationList",
-        "declarations": {
-          "0": {
-            "kind": "VariableDeclaration",
-            "name": {
-              "kind": "Identifier",
-              "text": "var6"
-            },
-            "typename": {
-              "kind": "Identifier",
-              "text": "string"
-            },
-            "init": {
-              "kind": "StringLiteral",
-              "value": "test",
-              "isSingleQuote": true
             }
           }
         },

@@ -112,8 +112,6 @@ export function check(module: Module) {
         valueDeclarationType,
         type,
       );
-
-      return type;
     }
 
     if (!declaration.typename) {

@@ -1,17 +1,16 @@
-var var1 = 'test';
-var var1: string = 'test';
+var s = 'test';
 
-var var2: number = 2;
-var var2 = 'test';
+var s1: string = 'test';
 
-var var3: string = 'test';
-var var3: number = 2;
-var var3 = 'test';
+var s2 = 'test';
+var s2: string = 'test';
 
-var var4 = 'test';
-var var4: number = 2;
-var var4: string = 'test';
+var s3: number = 2;
+var s3 = 'test';
 
-var var5 = 'test';
+var s4: string = 'test';
+var s4: number = 2;
+var s4 = 'test';
 
-var var6: string = 'test';
+var s5 = 'test';
+var s5: string = 2;
