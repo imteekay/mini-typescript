@@ -1,0 +1,79 @@
+{
+  "locals": {
+    "n": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 18
+      }
+    ],
+    "s": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 38
+      }
+    ],
+    "n2": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 54
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "n"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 1
+            }
+          },
+          "1": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "s"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          },
+          "2": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "n2"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 3
+            }
+          }
+        },
+        "flags": 0
+      }
+    }
+  ]
+}
