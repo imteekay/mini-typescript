@@ -30,7 +30,7 @@ function emitStatement(statement: Statement): string {
     case Node.VariableStatement:
       return `var ${statement.declarationList.declarations
         .map(emitVar)
-        .join(',')}`;
+        .join(', ')}`;
     case Node.TypeAlias:
       return `type ${statement.name.text} = ${statement.typename.text}`;
     case Node.EmptyStatement:
