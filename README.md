@@ -1,18 +1,12 @@
 # mini-typescript
 
-A miniature model of the Typescript compiler, intended to teach the structure of the real Typescript compiler
+This is a fork from [Nathan Shively-Sanders](https://github.com/sandersn)'s [mini-typescript](https://github.com/sandersn/mini-typescript).
 
-I started this project as part of reading [Modern Compiler Implementation in ML](https://www.cs.princeton.edu/~appel/modern/ml/) because I wanted to learn more about compiler backends. When I started building the example compiler I found I disagreed with the implementation of nearly everything in the _frontend_. So I wrote my own, and found that I had just written [a small Typescript](https://github.com/sandersn/minits).
-
-I realised a small Typescript would be useful to others who want to learn how the Typescript compiler works. So I rewrote it in Typescript and added some exercises to let you practise with it. The resulting compiler covers a tiny slice of Typescript: just `var` declarations, assignments and numeric literals. The only two types are `string` and `number`.
+The purpose of this repo is to practice the exercises and learn more about compilers and TypeScript.
 
 ### To get set up
 
 ```sh
-git clone https://github.com/sandersn/mini-typescript
-cd mini-typescript
-code .
-
 # Get set up
 npm i
 npm run build
