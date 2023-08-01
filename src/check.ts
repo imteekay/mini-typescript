@@ -92,9 +92,32 @@ export function check(module: Module) {
 
   function checkVariableDeclaration(declaration: VariableDeclaration) {
     const initType = checkExpression(declaration.init);
+    const symbol = resolve(
+      module.locals,
+      declaration.name.text,
+      SymbolFlags.FunctionScopedVariable,
+    );
+
+    if (symbol && declaration !== symbol.valueDeclaration) {
+      const valueDeclarationType = checkVariableDeclarationType(
+        symbol.valueDeclaration!,
+      );
+
+      const type = declaration.typename
+        ? checkType(declaration.typename)
+        : initType;
+
+      handleSubsequentVariableDeclarationsTypes(
+        declaration,
+        valueDeclarationType,
+        type,
+      );
+    }
+
     if (!declaration.typename) {
       return initType;
     }
+
     const type = checkType(declaration.typename);
     if (type !== initType && type !== errorType)
       error(
@@ -104,6 +127,12 @@ export function check(module: Module) {
         )}' to variable with declared type '${typeToString(type)}'.`,
       );
     return type;
+  }
+
+  function checkVariableDeclarationType(declaration: VariableDeclaration) {
+    return declaration.typename
+      ? checkType(declaration.typename)
+      : checkExpression(declaration.init);
   }
 
   function checkType(name: Identifier): Type {
@@ -125,6 +154,23 @@ export function check(module: Module) {
         }
         error(name.pos, 'Could not resolve type ' + name.text);
         return errorType;
+    }
+  }
+
+  function handleSubsequentVariableDeclarationsTypes(
+    declaration: VariableDeclaration,
+    valueDeclarationType: Type,
+    declarationType: Type,
+  ) {
+    if (valueDeclarationType !== declarationType) {
+      error(
+        declaration.pos,
+        `Subsequent variable declarations must have the same type. Variable '${
+          declaration.name.text
+        }' must be of type '${typeToString(
+          valueDeclarationType,
+        )}', but here has type '${typeToString(declarationType)}'.`,
+      );
     }
   }
 }

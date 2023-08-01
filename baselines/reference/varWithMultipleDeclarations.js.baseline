@@ -1,0 +1,1 @@
+"var var1 = 'test';\nvar var1 = 'var';\nvar var1 = 'no type annotation needed';\n"
