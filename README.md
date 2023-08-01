@@ -6,7 +6,7 @@ The purpose of this repo is to practice the exercises and learn more about compi
 
 ### To get set up
 
-```sh
+```bash
 # Get set up
 npm i
 npm run build
