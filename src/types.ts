@@ -127,7 +127,7 @@ export type Let = Location & {
 export type TypeAlias = Location & {
   kind: Node.TypeAlias;
   name: Identifier;
-  typename: Identifier;
+  typename: Identifier | TypeLiteral;
 };
 
 type TypeReference = Location & {
