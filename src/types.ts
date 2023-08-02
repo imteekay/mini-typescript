@@ -42,7 +42,6 @@ export enum Node {
   VariableStatement,
   VariableDeclarationList,
   VariableDeclaration,
-  EndOfFile,
 }
 
 export type Error = {

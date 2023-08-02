@@ -1,0 +1,91 @@
+{
+  "locals": {
+    "var1": [
+      {
+        "kind": "VariableDeclaration",
+        "pos": 26
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 70
+      },
+      {
+        "kind": "VariableDeclaration",
+        "pos": 105
+      }
+    ]
+  },
+  "statements": [
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "test",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "var",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "var1"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "no type annotation needed",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    }
+  ]
+}

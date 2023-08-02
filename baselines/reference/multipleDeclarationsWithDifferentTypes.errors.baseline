@@ -1,0 +1,14 @@
+[
+  {
+    "pos": 122,
+    "message": "Subsequent variable declarations must have the same type. Variable 's3' must be of type 'number', but here has type 'string'."
+  },
+  {
+    "pos": 168,
+    "message": "Subsequent variable declarations must have the same type. Variable 's4' must be of type 'string', but here has type 'number'."
+  },
+  {
+    "pos": 222,
+    "message": "Cannot assign initialiser of type 'number' to variable with declared type 'string'."
+  }
+]
