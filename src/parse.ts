@@ -10,6 +10,7 @@ import {
   VariableDeclaration,
   NodeFlags,
   VariableStatement,
+  TypeLiteral,
 } from './types';
 import { error } from './error';
 
@@ -19,7 +20,7 @@ export function parse(lexer: Lexer): Module {
 
   function parseModule(): Module {
     return {
-      statements: parseStatements(
+      statements: parseList(
         parseStatement,
         () => tryParseToken(Token.Semicolon),
         () => lexer.token() !== Token.EOF,
@@ -68,6 +69,33 @@ export function parse(lexer: Lexer): Module {
     return { kind: Node.Identifier, text: '(missing)', pos: e.pos };
   }
 
+  function parseMember() {
+    const pos = lexer.pos();
+    const name = parseIdentifier();
+    parseExpected(Token.Colon);
+    const typename = tryParseToken(Token.OpenBrace)
+      ? parseTypeLiteral()
+      : parseIdentifier();
+
+    return {
+      name,
+      typename,
+      pos,
+    };
+  }
+
+  function parseTypeLiteral(): TypeLiteral {
+    return {
+      kind: Node.TypeLiteral,
+      members: parseList(
+        parseMember,
+        () => tryParseToken(Token.Semicolon),
+        () => tryParseToken(Token.CloseBrace),
+      ),
+      pos: lexer.pos(),
+    };
+  }
+
   function parseStatement(): Statement {
     const pos = lexer.pos();
 
@@ -78,7 +106,9 @@ export function parse(lexer: Lexer): Module {
     } else if (tryParseToken(Token.Type)) {
       const name = parseIdentifier();
       parseExpected(Token.Equals);
-      const typename = parseIdentifier();
+      const typename = tryParseToken(Token.OpenBrace)
+        ? parseTypeLiteral()
+        : parseIdentifier();
       return { kind: Node.TypeAlias, name, typename, pos };
     } else if (tryParseToken(Token.Semicolon)) {
       return { kind: Node.EmptyStatement };
@@ -139,7 +169,7 @@ export function parse(lexer: Lexer): Module {
     }
   }
 
-  function parseStatements<T>(
+  function parseList<T>(
     element: () => T,
     terminator: () => boolean,
     peek: () => boolean,

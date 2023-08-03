@@ -130,13 +130,9 @@ export type TypeAlias = Location & {
   typename: Identifier | TypeLiteral;
 };
 
-type TypeReference = Location & {
-  name: Identifier;
-};
-
 type PropertySignature = Location & {
   name: Identifier;
-  type: Identifier | TypeReference;
+  typename: Identifier | TypeLiteral;
 };
 
 // Added it to member as it's possible to have other types of members. e.g. method signature
