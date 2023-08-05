@@ -7,6 +7,7 @@
     "build": "tsc",
     "test": "rm baselines/local/*; tsc && node built/test.js",
     "test:file": "tsc && node built/testFile.js",
+    "test:parser": "ts-node ./src/testParser",
     "accept": "mv baselines/local/* baselines/reference/",
     "mtsc": "node built/index.js"
   },
@@ -30,6 +31,7 @@
   "homepage": "https://github.com/sandersn/mini-typescript#readme",
   "devDependencies": {
     "@types/node": "20.4.0",
+    "ts-node": "^10.9.1",
     "typescript": "latest"
   }
 }
