@@ -11,6 +11,7 @@ import {
   NodeFlags,
   VariableStatement,
   TypeLiteral,
+  Member,
 } from './types';
 import { error } from './error';
 
@@ -69,7 +70,7 @@ export function parse(lexer: Lexer): Module {
     return { kind: Node.Identifier, text: '(missing)', pos: e.pos };
   }
 
-  function parseMember() {
+  function parseMember(): Member {
     const pos = lexer.pos();
     const name = parseIdentifier();
     parseExpected(Token.Colon);
@@ -90,7 +91,7 @@ export function parse(lexer: Lexer): Module {
       members: parseList(
         parseMember,
         () => tryParseToken(Token.Semicolon),
-        () => tryParseToken(Token.CloseBrace),
+        () => !tryParseToken(Token.CloseBrace),
       ),
       pos: lexer.pos(),
     };

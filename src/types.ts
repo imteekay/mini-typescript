@@ -136,7 +136,7 @@ type PropertySignature = Location & {
 };
 
 // Added it to member as it's possible to have other types of members. e.g. method signature
-type Member = PropertySignature;
+export type Member = PropertySignature;
 
 export type TypeLiteral = Location & {
   kind: Node.TypeLiteral;
