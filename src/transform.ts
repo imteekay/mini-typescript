@@ -1,4 +1,10 @@
-import { Statement, Node, CompilerOptions, SymbolFlags } from './types';
+import {
+  Statement,
+  Node,
+  CompilerOptions,
+  SymbolFlags,
+  VariableStatement,
+} from './types';
 
 export function transform(
   statements: Statement[],
@@ -44,28 +50,29 @@ function typescript(statements: Statement[]) {
 function es2015(statements: Statement[]) {
   return statements.flatMap(transformStatement);
 
+  function transformLetIntoVar(statement: VariableStatement) {
+    return [
+      {
+        ...statement,
+        declarationList: {
+          ...statement.declarationList,
+          declarations: statement.declarationList.declarations.map(
+            (declaration) => ({
+              ...declaration,
+              name: { ...declaration.name, text: 'var' },
+            }),
+          ),
+        },
+      },
+    ];
+  }
+
   function transformStatement(statement: Statement): Statement[] {
     switch (statement.kind) {
       case Node.VariableStatement:
-        return [
-          {
-            ...statement,
-            declarationList: {
-              ...statement.declarationList,
-              declarations: statement.declarationList.declarations.map(
-                (declaration) =>
-                  statement.declarationList.flags &
-                  SymbolFlags.BlockScopedVariable
-                    ? {
-                        ...declaration,
-                        name: { ...declaration.name, text: 'var' },
-                        typename: undefined,
-                      }
-                    : declaration,
-              ),
-            },
-          },
-        ];
+        return statement.declarationList.flags & SymbolFlags.BlockScopedVariable
+          ? transformLetIntoVar(statement)
+          : [statement];
       default:
         return [statement];
     }
