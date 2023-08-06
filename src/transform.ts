@@ -60,7 +60,6 @@ function es2015(statements: Statement[]) {
             (declaration) => ({
               ...declaration,
               name: { ...declaration.name, text: 'var' },
-              typename: undefined,
             }),
           ),
         },
