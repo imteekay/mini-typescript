@@ -57,14 +57,11 @@ function es2015(statements: Statement[]) {
         declarationList: {
           ...statement.declarationList,
           declarations: statement.declarationList.declarations.map(
-            (declaration) =>
-              statement.declarationList.flags & SymbolFlags.BlockScopedVariable
-                ? {
-                    ...declaration,
-                    name: { ...declaration.name, text: 'var' },
-                    typename: undefined,
-                  }
-                : declaration,
+            (declaration) => ({
+              ...declaration,
+              name: { ...declaration.name, text: 'var' },
+              typename: undefined,
+            }),
           ),
         },
       },
