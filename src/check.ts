@@ -92,15 +92,16 @@ export function check(module: Module) {
 
   function checkVariableDeclaration(declaration: VariableDeclaration) {
     const initType = checkExpression(declaration.init);
-    const symbol = resolve(
+    const varSymbol = resolve(
       module.locals,
       declaration.name.text,
       SymbolFlags.FunctionScopedVariable,
     );
 
-    if (symbol && declaration !== symbol.valueDeclaration) {
+    // handle subsequent variable declarations types — generate an error if it has type mismatches
+    if (varSymbol && declaration !== varSymbol.valueDeclaration) {
       const valueDeclarationType = checkVariableDeclarationType(
-        symbol.valueDeclaration!,
+        varSymbol.valueDeclaration!,
       );
 
       const type = declaration.typename
