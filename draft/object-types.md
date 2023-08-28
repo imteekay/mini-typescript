@@ -154,3 +154,402 @@ AST:
   }[]
 }
 ```
+
+## Object Literals
+
+```ts
+type A = string;
+type B = number;
+type C = {
+  a: string;
+  b: number;
+};
+
+type D = {
+  a: string;
+  b: number;
+  c: A;
+  d: B;
+  e: C;
+  f: {
+    foo: string;
+    bar: number;
+  };
+};
+
+var a: A = 'string';
+var b: B = 11;
+var c: C = {
+  a: a,
+  b: b,
+};
+
+var d: D = {
+  a: a,
+  b: b,
+  c: a,
+  d: b,
+  e: c,
+  f: {
+    foo: 'string',
+    bar: 10,
+  },
+};
+```
+
+It produces this AST
+
+```ts
+{
+  "statements": [
+    {
+      "kind": "TypeAlias",
+      "name": {
+        "kind": "Identifier",
+        "text": "A"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "string"
+      }
+    },
+    {
+      "kind": "TypeAlias",
+      "name": {
+        "kind": "Identifier",
+        "text": "B"
+      },
+      "typename": {
+        "kind": "Identifier",
+        "text": "number"
+      }
+    },
+    {
+      "kind": "TypeAlias",
+      "name": {
+        "kind": "Identifier",
+        "text": "C"
+      },
+      "typename": {
+        "kind": "TypeLiteral",
+        "members": {
+          "0": {
+            "name": {
+              "kind": "Identifier",
+              "text": "a"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            }
+          },
+          "1": {
+            "name": {
+              "kind": "Identifier",
+              "text": "b"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "TypeAlias",
+      "name": {
+        "kind": "Identifier",
+        "text": "D"
+      },
+      "typename": {
+        "kind": "TypeLiteral",
+        "members": {
+          "0": {
+            "name": {
+              "kind": "Identifier",
+              "text": "a"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "string"
+            }
+          },
+          "1": {
+            "name": {
+              "kind": "Identifier",
+              "text": "b"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "number"
+            }
+          },
+          "2": {
+            "name": {
+              "kind": "Identifier",
+              "text": "c"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "A"
+            }
+          },
+          "3": {
+            "name": {
+              "kind": "Identifier",
+              "text": "d"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "B"
+            }
+          },
+          "4": {
+            "name": {
+              "kind": "Identifier",
+              "text": "e"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "C"
+            }
+          },
+          "5": {
+            "name": {
+              "kind": "Identifier",
+              "text": "f"
+            },
+            "typename": {
+              "kind": "TypeLiteral",
+              "members": {
+                "0": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "foo"
+                  },
+                  "typename": {
+                    "kind": "Identifier",
+                    "text": "string"
+                  }
+                },
+                "1": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "bar"
+                  },
+                  "typename": {
+                    "kind": "Identifier",
+                    "text": "number"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "a"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "A"
+            },
+            "init": {
+              "kind": "StringLiteral",
+              "value": "string",
+              "isSingleQuote": true
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "b"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "B"
+            },
+            "init": {
+              "kind": "NumericLiteral",
+              "value": 11
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "c"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "C"
+            },
+            "init": {
+              "kind": "ObjectLiteralExpression",
+              "properties": {
+                "0": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "a"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "a"
+                  }
+                },
+                "1": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "b"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "b"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "flags": 0
+      }
+    },
+    {
+      "kind": "VariableStatement",
+      "declarationList": {
+        "kind": "VariableDeclarationList",
+        "declarations": {
+          "0": {
+            "kind": "VariableDeclaration",
+            "name": {
+              "kind": "Identifier",
+              "text": "d"
+            },
+            "typename": {
+              "kind": "Identifier",
+              "text": "D"
+            },
+            "init": {
+              "kind": "ObjectLiteralExpression",
+              "properties": {
+                "0": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "a"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "a"
+                  }
+                },
+                "1": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "b"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "b"
+                  }
+                },
+                "2": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "c"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "a"
+                  }
+                },
+                "3": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "d"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "b"
+                  }
+                },
+                "4": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "e"
+                  },
+                  "init": {
+                    "kind": "Identifier",
+                    "text": "c"
+                  }
+                },
+                "5": {
+                  "name": {
+                    "kind": "Identifier",
+                    "text": "f"
+                  },
+                  "init": {
+                    "kind": "ObjectLiteralExpression",
+                    "properties": {
+                      "0": {
+                        "name": {
+                          "kind": "Identifier",
+                          "text": "foo"
+                        },
+                        "init": {
+                          "kind": "StringLiteral",
+                          "value": "string",
+                          "isSingleQuote": true
+                        }
+                      },
+                      "1": {
+                        "name": {
+                          "kind": "Identifier",
+                          "text": "bar"
+                        },
+                        "init": {
+                          "kind": "NumericLiteral",
+                          "value": 10
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "flags": 0
+      }
+    }
+  ]
+}
+```
