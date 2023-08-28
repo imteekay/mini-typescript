@@ -110,20 +110,6 @@ export type VariableDeclaration = Location & {
   init: Expression;
 };
 
-export type Var = Location & {
-  kind: Node.Var;
-  name: Identifier;
-  typename?: Identifier | undefined;
-  init: Expression;
-};
-
-export type Let = Location & {
-  kind: Node.Let;
-  name: Identifier;
-  typename?: Identifier | undefined;
-  init: Expression;
-};
-
 export type TypeAlias = Location & {
   kind: Node.TypeAlias;
   name: Identifier;
