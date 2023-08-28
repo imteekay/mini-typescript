@@ -553,3 +553,28 @@ It produces this AST
   ]
 }
 ```
+
+## Type Checking
+
+Two way type checking:
+
+1. going from the value and checking the type definition
+2. going from the type definition and checking the value properties
+
+Any type mismatch should generate this error
+
+```
+Type {X} is not assignable to {Y}
+```
+
+Every property was right but it's missing some from the type definition
+
+```
+Type '{ a: string; b: number; }' is missing the following properties from type 'D': c, d, e, f
+```
+
+Go through the list of properties, for each, check if it's defined in the type definition. If it's not, it should generate the type error
+
+```
+Object literal may only specify known properties, and 'g' does not exist in type 'D'.
+```
