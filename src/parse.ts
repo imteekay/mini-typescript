@@ -6,7 +6,6 @@ import {
   Identifier,
   Expression,
   Module,
-  Var,
   VariableDeclaration,
   NodeFlags,
   VariableStatement,
