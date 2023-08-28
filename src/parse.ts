@@ -11,6 +11,9 @@ import {
   VariableStatement,
   TypeLiteral,
   Member,
+  ObjectLiteralExpression,
+  PropertyAssignment,
+  IdentifierOrLiteral,
 } from './types';
 import { error } from './error';
 
@@ -38,7 +41,7 @@ export function parse(lexer: Lexer): Module {
     return e;
   }
 
-  function parseIdentifierOrLiteral(): Expression {
+  function parseIdentifierOrLiteral(): IdentifierOrLiteral {
     const pos = lexer.pos();
     if (tryParseToken(Token.Identifier)) {
       return { kind: Node.Identifier, text: lexer.text(), pos };
@@ -51,6 +54,8 @@ export function parse(lexer: Lexer): Module {
         pos,
         isSingleQuote: lexer.isSingleQuote(),
       };
+    } else if (tryParseToken(Token.OpenBrace)) {
+      return parseObjectLiteral();
     }
     error(
       pos,
@@ -67,6 +72,31 @@ export function parse(lexer: Lexer): Module {
     }
     error(e.pos, 'Expected identifier but got a literal');
     return { kind: Node.Identifier, text: '(missing)', pos: e.pos };
+  }
+
+  function parseProperty(): PropertyAssignment {
+    const pos = lexer.pos();
+    const name = parseIdentifier();
+    parseExpected(Token.Colon);
+    const init = parseIdentifierOrLiteral();
+
+    return {
+      name,
+      init,
+      pos,
+    };
+  }
+
+  function parseObjectLiteral(): ObjectLiteralExpression {
+    return {
+      kind: Node.ObjectLiteralExpression,
+      properties: parseList(
+        parseProperty,
+        () => tryParseToken(Token.Comma),
+        () => !tryParseToken(Token.CloseBrace),
+      ),
+      pos: lexer.pos(),
+    };
   }
 
   function parseMember(): Member {

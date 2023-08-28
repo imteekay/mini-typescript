@@ -16,3 +16,22 @@ type D = {
     bar: number;
   };
 };
+
+var a: A = 'string';
+var b: B = 11;
+var c: C = {
+  a: a,
+  b: b
+};
+
+var d: D = {
+  a: a,
+  b: b,
+  c: a,
+  d: b,
+  e: c,
+  f: {
+    foo: 'string',
+    bar: 10
+  }
+};

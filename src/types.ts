@@ -42,6 +42,7 @@ export enum Node {
   VariableStatement,
   VariableDeclarationList,
   VariableDeclaration,
+  ObjectLiteralExpression,
 }
 
 export type Error = {
@@ -57,7 +58,14 @@ export type Expression =
   | Identifier
   | NumericLiteral
   | Assignment
-  | StringLiteral;
+  | StringLiteral
+  | ObjectLiteralExpression;
+
+export type IdentifierOrLiteral =
+  | Identifier
+  | StringLiteral
+  | NumericLiteral
+  | ObjectLiteralExpression;
 
 export type Identifier = Location & {
   kind: Node.Identifier;
@@ -79,6 +87,16 @@ export type Assignment = Location & {
   kind: Node.Assignment;
   name: Identifier;
   value: Expression;
+};
+
+export type PropertyAssignment = Location & {
+  name: Identifier | StringLiteral | NumericLiteral;
+  init: IdentifierOrLiteral;
+};
+
+export type ObjectLiteralExpression = Location & {
+  kind: Node.ObjectLiteralExpression;
+  properties: PropertyAssignment[];
 };
 
 export type Statement =
