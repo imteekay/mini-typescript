@@ -561,20 +561,54 @@ Two way type checking:
 1. going from the value and checking the type definition
 2. going from the type definition and checking the value properties
 
-Any type mismatch should generate this error
+Check phases
+
+1. Any property type mismatch should generate this error
 
 ```
 Type {X} is not assignable to {Y}
 ```
 
-Every property was right but it's missing some from the type definition
+2. Go through the list of properties. For each one, check if it's defined in the type definition. If it's not, it should generate the type error
+
+```
+Object literal may only specify known properties, and 'g' does not exist in type 'D'.
+```
+
+3. Every property was right but it's missing some from the type definition
 
 ```
 Type '{ a: string; b: number; }' is missing the following properties from type 'D': c, d, e, f
 ```
 
-Go through the list of properties, for each, check if it's defined in the type definition. If it's not, it should generate the type error
+### Object type structure
 
+```ts
+type ObjecType = {
+  flags: ObjectFlag;
+  members: Record<string, Symbol>;
+};
 ```
-Object literal may only specify known properties, and 'g' does not exist in type 'D'.
+
+A module can have many different object types:
+
+```ts
+type ObjectTypes = {
+  [key: string]: ObjectType;
+};
+```
+
+So we can use it like:
+
+```ts
+const objectsTypes: ObjectTypes = {
+  A: {
+    flags: ObjectFlag,
+    members: {
+      a: number,
+    },
+  },
+};
+
+objectTypes.get('A').members.get('a');
 ```

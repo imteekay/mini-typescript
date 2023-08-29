@@ -108,6 +108,7 @@ export function parse(lexer: Lexer): Module {
       : parseIdentifier();
 
     return {
+      kind: Node.PropertySignature,
       name,
       typename,
       pos,

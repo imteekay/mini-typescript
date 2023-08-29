@@ -9,21 +9,35 @@ import {
   VariableDeclaration,
   SymbolFlags,
   Symbol,
+  TypeLiteral,
+  TypeFlags,
+  Member,
+  PropertySignature,
+  TypeTable,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
 
-const stringType: Type = { id: 'string' };
-const numberType: Type = { id: 'number' };
-const errorType: Type = { id: 'error' };
-const empty: Type = { id: 'empty' };
-const anyType: Type = { id: 'any' };
+const stringType: Type = { id: 'string', flags: TypeFlags.Any };
+const numberType: Type = { id: 'number', flags: TypeFlags.NumericLiteral };
+const errorType: Type = { id: 'error', flags: TypeFlags.Any };
+const empty: Type = { id: 'empty', flags: TypeFlags.Any };
+const anyType: Type = { id: 'any', flags: TypeFlags.Any };
+
+function createObjectType(members: TypeTable): Type {
+  return {
+    id: 'object',
+    flags: TypeFlags.Object,
+    members,
+  };
+}
 
 function typeToString(type: Type) {
   return type.id;
 }
 
 export function check(module: Module) {
+  const objectTypes = new Map<string, Type>();
   return module.statements.map(checkStatement);
 
   function checkStatement(statement: Statement): Type {
@@ -31,7 +45,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.TypeAlias:
-        return checkType(statement.typename);
+        return checkTypeAlias(statement);
       case Node.VariableStatement:
         statement.declarationList.declarations.forEach(
           checkVariableDeclaration,
@@ -120,6 +134,7 @@ export function check(module: Module) {
     }
 
     const type = checkType(declaration.typename);
+
     if (type !== initType && type !== errorType)
       error(
         declaration.init.pos,
@@ -127,6 +142,7 @@ export function check(module: Module) {
           initType,
         )}' to variable with declared type '${typeToString(type)}'.`,
       );
+
     return type;
   }
 
@@ -134,6 +150,12 @@ export function check(module: Module) {
     return declaration.typename
       ? checkType(declaration.typename)
       : checkExpression(declaration.init);
+  }
+
+  function checkTypeAlias(statement: TypeAlias | PropertySignature) {
+    return statement.typename.kind === Node.TypeLiteral
+      ? checkObjecType(statement)
+      : checkType(statement.typename);
   }
 
   function checkType(name: Identifier): Type {
@@ -156,6 +178,25 @@ export function check(module: Module) {
         error(name.pos, 'Could not resolve type ' + name.text);
         return errorType;
     }
+  }
+
+  function checkObjecType(statement: TypeAlias | PropertySignature) {
+    objectTypes.set(
+      statement.name.text,
+      createObjectType(
+        checkMemberTypes((statement.typename as TypeLiteral).members),
+      ),
+    );
+
+    return objectTypes.get(statement.name.text) as Type;
+  }
+
+  function checkMemberTypes(members: Member[]) {
+    const membersTable = new Map<string, Type>();
+    members.forEach((member) =>
+      membersTable.set(member.name.text, checkTypeAlias(member)),
+    );
+    return membersTable;
   }
 
   function handleSubsequentVariableDeclarationsTypes(

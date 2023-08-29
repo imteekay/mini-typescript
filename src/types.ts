@@ -42,6 +42,7 @@ export enum Node {
   VariableStatement,
   VariableDeclarationList,
   VariableDeclaration,
+  PropertySignature,
   ObjectLiteralExpression,
 }
 
@@ -134,7 +135,8 @@ export type TypeAlias = Location & {
   typename: Identifier | TypeLiteral;
 };
 
-type PropertySignature = Location & {
+export type PropertySignature = Location & {
+  kind: Node.PropertySignature;
   name: Identifier;
   typename: Identifier | TypeLiteral;
 };
@@ -166,7 +168,13 @@ export type Module = {
   statements: Statement[];
 };
 
-export type Type = { id: string };
+export type TypeTable = Map<string, Type>;
+
+export type Type = {
+  id: string;
+  flags: TypeFlags;
+  members?: TypeTable;
+};
 
 export enum CharCodes {
   b = 98,
@@ -194,4 +202,11 @@ export const enum SymbolFlags {
 export const enum NodeFlags {
   None = 0,
   Let = 1 << 0,
+}
+
+export const enum TypeFlags {
+  Any = 1 << 0,
+  StringLiteral = 1 << 1,
+  NumericLiteral = 1 << 2,
+  Object = 1 << 3,
 }
