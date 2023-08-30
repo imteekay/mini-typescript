@@ -14,6 +14,8 @@ import {
   Member,
   PropertySignature,
   TypeTable,
+  ObjectLiteralExpression,
+  PropertyAssignment,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
@@ -45,7 +47,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.TypeAlias:
-        return checkTypeAlias(statement);
+        return checkIdentifierOrObjectType(statement);
       case Node.VariableStatement:
         statement.declarationList.declarations.forEach(
           checkVariableDeclaration,
@@ -93,6 +95,8 @@ export function check(module: Module) {
             )}' to variable of type '${typeToString(t)}'.`,
           );
         return t;
+      case Node.ObjectLiteralExpression:
+        return createObjectType(checkPropertyTypes(expression.properties));
     }
   }
 
@@ -152,12 +156,6 @@ export function check(module: Module) {
       : checkExpression(declaration.init);
   }
 
-  function checkTypeAlias(statement: TypeAlias | PropertySignature) {
-    return statement.typename.kind === Node.TypeLiteral
-      ? checkObjecType(statement)
-      : checkType(statement.typename);
-  }
-
   function checkType(name: Identifier): Type {
     switch (name.text) {
       case 'string':
@@ -167,12 +165,10 @@ export function check(module: Module) {
       default:
         const symbol = resolve(module.locals, name.text, SymbolFlags.Type);
         if (symbol) {
-          return checkType(
-            (
-              symbol.declarations.find(
-                (d) => d.kind === Node.TypeAlias,
-              ) as TypeAlias
-            ).typename,
+          return checkIdentifierOrObjectType(
+            symbol.declarations.find(
+              (d) => d.kind === Node.TypeAlias,
+            ) as TypeAlias,
           );
         }
         error(name.pos, 'Could not resolve type ' + name.text);
@@ -194,9 +190,32 @@ export function check(module: Module) {
   function checkMemberTypes(members: Member[]) {
     const membersTable = new Map<string, Type>();
     members.forEach((member) =>
-      membersTable.set(member.name.text, checkTypeAlias(member)),
+      membersTable.set(member.name.text, checkIdentifierOrObjectType(member)),
     );
     return membersTable;
+  }
+
+  function checkPropertyTypes(properties: PropertyAssignment[]) {
+    const membersTable = new Map<string, Type>();
+    properties.forEach((property) =>
+      membersTable.set(
+        'text' in property.name
+          ? property.name.text
+          : property.name.value.toString(),
+        checkIdentifierOrObjectType(property),
+      ),
+    );
+    return membersTable;
+  }
+
+  function checkIdentifierOrObjectType(
+    statement: TypeAlias | PropertySignature | PropertyAssignment,
+  ) {
+    return 'typename' in statement
+      ? statement.typename.kind === Node.TypeLiteral
+        ? checkObjecType(statement)
+        : checkType(statement.typename)
+      : checkExpression(statement.init);
   }
 
   function handleSubsequentVariableDeclarationsTypes(
