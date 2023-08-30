@@ -14,7 +14,6 @@ import {
   Member,
   PropertySignature,
   TypeTable,
-  ObjectLiteralExpression,
   PropertyAssignment,
 } from './types';
 import { error } from './error';
