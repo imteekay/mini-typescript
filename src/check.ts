@@ -46,7 +46,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.TypeAlias:
-        return checkIdentifierOrObjectType(statement);
+        return checkTypeIdentifierOrObjectType(statement);
       case Node.VariableStatement:
         statement.declarationList.declarations.forEach(
           checkVariableDeclaration,
@@ -164,7 +164,7 @@ export function check(module: Module) {
       default:
         const symbol = resolve(module.locals, name.text, SymbolFlags.Type);
         if (symbol) {
-          return checkIdentifierOrObjectType(
+          return checkTypeIdentifierOrObjectType(
             symbol.declarations.find(
               (d) => d.kind === Node.TypeAlias,
             ) as TypeAlias,
@@ -189,7 +189,10 @@ export function check(module: Module) {
   function checkMemberTypes(members: Member[]) {
     const membersTable = new Map<string, Type>();
     members.forEach((member) =>
-      membersTable.set(member.name.text, checkIdentifierOrObjectType(member)),
+      membersTable.set(
+        member.name.text,
+        checkTypeIdentifierOrObjectType(member),
+      ),
     );
     return membersTable;
   }
@@ -201,13 +204,13 @@ export function check(module: Module) {
         'text' in property.name
           ? property.name.text
           : property.name.value.toString(),
-        checkIdentifierOrObjectType(property),
+        checkTypeIdentifierOrObjectType(property),
       ),
     );
     return membersTable;
   }
 
-  function checkIdentifierOrObjectType(
+  function checkTypeIdentifierOrObjectType(
     statement: TypeAlias | PropertySignature | PropertyAssignment,
   ) {
     return 'typename' in statement
