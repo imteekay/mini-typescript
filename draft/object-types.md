@@ -16,6 +16,10 @@ type D = {
   c: A;
   d: B;
   e: C;
+  f: {
+    foo: string;
+    bar: number;
+  };
 };
 ```
 
