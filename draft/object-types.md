@@ -563,11 +563,15 @@ It produces this AST
 Two way type checking:
 
 1. going from the value and checking the type definition
+   easier to find if the object literal has attributes that are not in the type definition
 2. going from the type definition and checking the value properties
+   easier to find what's missing in the object literal to match the type definition
 
 Check phases
 
 1. Any property type mismatch should generate this error
+
+- If they don't share the same type. e.g. `number` and `object`
 
 ```
 Type {X} is not assignable to {Y}
