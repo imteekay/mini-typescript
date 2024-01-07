@@ -41,7 +41,7 @@ AST:
 
 ```ts
 {
-  kind: TypeAliasDeclaration,
+  kind: TypeAlias,
   name: Identifier,
   type: string | number
 }
@@ -60,7 +60,7 @@ AST:
 
 ```ts
 {
-  kind: TypeAliasDeclaration,
+  kind: TypeAlias,
   name: Identifier,
   type: {
     kind: TypeLiteral,
@@ -88,9 +88,9 @@ type D = {
 AST:
 
 ```ts
-// TypeAliasDeclaration
+// TypeAlias
 {
-  kind: TypeAliasDeclaration,
+  kind: TypeAlias,
   name: Identifier,
   type: {
     kind: TypeLiteral,
@@ -128,9 +128,9 @@ type D = {
 AST:
 
 ```ts
-// TypeAliasDeclaration
+// TypeAlias
 {
-  kind: TypeAliasDeclaration,
+  kind: TypeAlias,
   name: Identifier,
   type: {
     kind: TypeLiteral,
