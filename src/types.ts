@@ -13,6 +13,8 @@ export enum Token {
   Comma = 'Comma',
   Whitespace = 'Whitespace',
   String = 'String',
+  OpenBrace = 'OpenBrace',
+  CloseBrace = 'CloseBrace',
   Unknown = 'Unknown',
   BOF = 'BOF',
   EOF = 'EOF',
@@ -34,11 +36,14 @@ export enum Node {
   Var,
   Let,
   TypeAlias,
+  TypeLiteral,
   StringLiteral,
   EmptyStatement,
   VariableStatement,
   VariableDeclarationList,
   VariableDeclaration,
+  PropertySignature,
+  ObjectLiteralExpression,
 }
 
 export type Error = {
@@ -54,7 +59,14 @@ export type Expression =
   | Identifier
   | NumericLiteral
   | Assignment
-  | StringLiteral;
+  | StringLiteral
+  | ObjectLiteralExpression;
+
+export type IdentifierOrLiteral =
+  | Identifier
+  | StringLiteral
+  | NumericLiteral
+  | ObjectLiteralExpression;
 
 export type Identifier = Location & {
   kind: Node.Identifier;
@@ -76,6 +88,16 @@ export type Assignment = Location & {
   kind: Node.Assignment;
   name: Identifier;
   value: Expression;
+};
+
+export type PropertyAssignment = Location & {
+  name: Identifier | StringLiteral | NumericLiteral;
+  init: IdentifierOrLiteral;
+};
+
+export type ObjectLiteralExpression = Location & {
+  kind: Node.ObjectLiteralExpression;
+  properties: PropertyAssignment[];
 };
 
 export type Statement =
@@ -110,7 +132,21 @@ export type VariableDeclaration = Location & {
 export type TypeAlias = Location & {
   kind: Node.TypeAlias;
   name: Identifier;
-  typename: Identifier;
+  typename: Identifier | TypeLiteral;
+};
+
+export type PropertySignature = Location & {
+  kind: Node.PropertySignature;
+  name: Identifier;
+  typename: Identifier | TypeLiteral;
+};
+
+// Added it to member as it's possible to have other types of members. e.g. method signature
+export type Member = PropertySignature;
+
+export type TypeLiteral = Location & {
+  kind: Node.TypeLiteral;
+  members: Member[];
 };
 
 export type EmptyStatement = {
@@ -132,7 +168,13 @@ export type Module = {
   statements: Statement[];
 };
 
-export type Type = { id: string };
+export type TypeTable = Map<string, Type>;
+
+export type Type = {
+  id: string;
+  flags: TypeFlags;
+  members?: TypeTable;
+};
 
 export enum CharCodes {
   b = 98,
@@ -160,4 +202,11 @@ export const enum SymbolFlags {
 export const enum NodeFlags {
   None = 0,
   Let = 1 << 0,
+}
+
+export const enum TypeFlags {
+  Any = 1 << 0,
+  StringLiteral = 1 << 1,
+  NumericLiteral = 1 << 2,
+  Object = 1 << 3,
 }
