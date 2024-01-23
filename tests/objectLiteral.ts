@@ -17,16 +17,18 @@ type D = {
   };
 };
 
+var a: A = 'string';
+var b: B = 10;
 var c: C = {
-  a: 'a',
-  b: 1
+  a: a,
+  b: b
 };
 
 var d: D = {
-  a: 'a',
-  b: 1,
-  c: 'a',
-  d: 1,
+  a: a,
+  b: b,
+  c: a,
+  d: b,
   e: c,
   f: {
     foo: 'string',

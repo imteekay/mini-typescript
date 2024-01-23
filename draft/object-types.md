@@ -569,15 +569,18 @@ Two way type checking:
 
 Check phases
 
-1. Any property type mismatch should generate this error
+1. Any property type mismatch should generate this error. If they don't share the same type. e.g. `number` and `object`
 
-- If they don't share the same type. e.g. `number` and `object`
+- [x] Generate error
 
 ```
 Type {X} is not assignable to {Y}
 ```
 
-2. Go through the list of properties. For each one, check if it's defined in the type definition. If it's not, it should generate the type error
+2. Go through the list of properties. For each one, check if it's defined in the type definition. If it's not, it should generate the type error. This error only appears if rule number one passes the checker.
+
+- [x] Generate error
+- [ ] Generate error only if there're no rule number one errors
 
 ```
 Object literal may only specify known properties, and 'g' does not exist in type 'D'.

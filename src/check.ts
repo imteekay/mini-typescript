@@ -138,15 +138,59 @@ export function check(module: Module) {
 
     const type = checkType(declaration.typename);
 
-    if (type !== initType && type !== errorType)
+    handleUnassignableTypes(declaration, initType, type);
+
+    if (initType.id === 'object') {
+      // Handle property type mismatch and only known property errors
+      handlePropertyTypeMismatch(declaration, initType, type);
+      // Handle missing properties error
+
+      return type;
+    }
+
+    if (type !== initType && type !== errorType) {
       error(
         declaration.init.pos,
         `Cannot assign initialiser of type '${typeToString(
           initType,
         )}' to variable with declared type '${typeToString(type)}'.`,
       );
+    }
 
     return type;
+  }
+
+  function handlePropertyTypeMismatch(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+  ) {
+    let hasUnassignablePropertyTypes = false;
+    let undefinedPropertyName;
+
+    for (const [propertyName, propertyType] of initType.members as TypeTable) {
+      const typePropertyType = type.members?.get(propertyName);
+
+      if (typePropertyType) {
+        hasUnassignablePropertyTypes ||= handleUnassignablePropertyTypes(
+          declaration,
+          propertyType,
+          typePropertyType,
+          propertyName,
+        );
+      } else {
+        undefinedPropertyName ||= propertyName;
+      }
+    }
+
+    if (!hasUnassignablePropertyTypes && undefinedPropertyName) {
+      error(
+        declaration.init.pos,
+        `Object literal may only specify known properties, and '${undefinedPropertyName}' does not exist in type '${declaration.typename?.text}'.`,
+      );
+    }
+
+    return hasUnassignablePropertyTypes;
   }
 
   function checkVariableDeclarationType(declaration: VariableDeclaration) {
@@ -218,6 +262,48 @@ export function check(module: Module) {
         ? checkObjecType(statement)
         : checkType(statement.typename)
       : checkExpression(statement.init);
+  }
+
+  function handleUnassignableTypes(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+  ) {
+    if (initType.id !== type.id) {
+      error(
+        declaration.init.pos,
+        `Type '${typeToString(
+          initType,
+        )}' is not assignable to type '${typeToString(type)}'.`,
+      );
+    }
+  }
+
+  function handleUnassignablePropertyTypes(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+    propertyName: string,
+  ): boolean {
+    if (initType.id !== type.id) {
+      error(
+        declaration.init.pos,
+        `Type '${typeToString(
+          initType,
+        )}' is not assignable to type '${typeToString(
+          type,
+        )}'. The expected type comes from property '${propertyName}' which is declared here on type '${
+          declaration.typename?.text
+        }'`,
+      );
+      return true;
+    }
+
+    if (initType.id === type.id && initType.id === 'object') {
+      return handlePropertyTypeMismatch(declaration, initType, type);
+    }
+
+    return false;
   }
 
   function handleSubsequentVariableDeclarationsTypes(
