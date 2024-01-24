@@ -9,21 +9,36 @@ import {
   VariableDeclaration,
   SymbolFlags,
   Symbol,
+  TypeLiteral,
+  TypeFlags,
+  Member,
+  PropertySignature,
+  TypeTable,
+  PropertyAssignment,
 } from './types';
 import { error } from './error';
 import { resolve } from './bind';
 
-const stringType: Type = { id: 'string' };
-const numberType: Type = { id: 'number' };
-const errorType: Type = { id: 'error' };
-const empty: Type = { id: 'empty' };
-const anyType: Type = { id: 'any' };
+const stringType: Type = { id: 'string', flags: TypeFlags.Any };
+const numberType: Type = { id: 'number', flags: TypeFlags.NumericLiteral };
+const errorType: Type = { id: 'error', flags: TypeFlags.Any };
+const empty: Type = { id: 'empty', flags: TypeFlags.Any };
+const anyType: Type = { id: 'any', flags: TypeFlags.Any };
+
+function createObjectType(members: TypeTable): Type {
+  return {
+    id: 'object',
+    flags: TypeFlags.Object,
+    members,
+  };
+}
 
 function typeToString(type: Type) {
   return type.id;
 }
 
 export function check(module: Module) {
+  const objectTypes = new Map<string, Type>();
   return module.statements.map(checkStatement);
 
   function checkStatement(statement: Statement): Type {
@@ -31,7 +46,7 @@ export function check(module: Module) {
       case Node.ExpressionStatement:
         return checkExpression(statement.expr);
       case Node.TypeAlias:
-        return checkType(statement.typename);
+        return checkTypeIdentifierOrObjectType(statement);
       case Node.VariableStatement:
         statement.declarationList.declarations.forEach(
           checkVariableDeclaration,
@@ -79,6 +94,8 @@ export function check(module: Module) {
             )}' to variable of type '${typeToString(t)}'.`,
           );
         return t;
+      case Node.ObjectLiteralExpression:
+        return createObjectType(checkPropertyTypes(expression.properties));
     }
   }
 
@@ -92,15 +109,16 @@ export function check(module: Module) {
 
   function checkVariableDeclaration(declaration: VariableDeclaration) {
     const initType = checkExpression(declaration.init);
-    const symbol = resolve(
+    const varSymbol = resolve(
       module.locals,
       declaration.name.text,
       SymbolFlags.FunctionScopedVariable,
     );
 
-    if (symbol && declaration !== symbol.valueDeclaration) {
+    // handle subsequent variable declarations types — generate an error if it has type mismatches
+    if (varSymbol && declaration !== varSymbol.valueDeclaration) {
       const valueDeclarationType = checkVariableDeclarationType(
-        symbol.valueDeclaration!,
+        varSymbol.valueDeclaration!,
       );
 
       const type = declaration.typename
@@ -119,14 +137,60 @@ export function check(module: Module) {
     }
 
     const type = checkType(declaration.typename);
-    if (type !== initType && type !== errorType)
+
+    handleUnassignableTypes(declaration, initType, type);
+
+    if (initType.id === 'object') {
+      // Handle property type mismatch and only known property errors
+      handlePropertyTypeMismatch(declaration, initType, type);
+      // Handle missing properties error
+
+      return type;
+    }
+
+    if (type !== initType && type !== errorType) {
       error(
         declaration.init.pos,
         `Cannot assign initialiser of type '${typeToString(
           initType,
         )}' to variable with declared type '${typeToString(type)}'.`,
       );
+    }
+
     return type;
+  }
+
+  function handlePropertyTypeMismatch(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+  ) {
+    let hasUnassignablePropertyTypes = false;
+    let undefinedPropertyName;
+
+    for (const [propertyName, propertyType] of initType.members as TypeTable) {
+      const typePropertyType = type.members?.get(propertyName);
+
+      if (typePropertyType) {
+        hasUnassignablePropertyTypes ||= handleUnassignablePropertyTypes(
+          declaration,
+          propertyType,
+          typePropertyType,
+          propertyName,
+        );
+      } else {
+        undefinedPropertyName ||= propertyName;
+      }
+    }
+
+    if (!hasUnassignablePropertyTypes && undefinedPropertyName) {
+      error(
+        declaration.init.pos,
+        `Object literal may only specify known properties, and '${undefinedPropertyName}' does not exist in type '${declaration.typename?.text}'.`,
+      );
+    }
+
+    return hasUnassignablePropertyTypes;
   }
 
   function checkVariableDeclarationType(declaration: VariableDeclaration) {
@@ -144,17 +208,102 @@ export function check(module: Module) {
       default:
         const symbol = resolve(module.locals, name.text, SymbolFlags.Type);
         if (symbol) {
-          return checkType(
-            (
-              symbol.declarations.find(
-                (d) => d.kind === Node.TypeAlias,
-              ) as TypeAlias
-            ).typename,
+          return checkTypeIdentifierOrObjectType(
+            symbol.declarations.find(
+              (d) => d.kind === Node.TypeAlias,
+            ) as TypeAlias,
           );
         }
         error(name.pos, 'Could not resolve type ' + name.text);
         return errorType;
     }
+  }
+
+  function checkObjecType(statement: TypeAlias | PropertySignature) {
+    objectTypes.set(
+      statement.name.text,
+      createObjectType(
+        checkMemberTypes((statement.typename as TypeLiteral).members),
+      ),
+    );
+
+    return objectTypes.get(statement.name.text) as Type;
+  }
+
+  function checkMemberTypes(members: Member[]) {
+    const membersTable = new Map<string, Type>();
+    members.forEach((member) =>
+      membersTable.set(
+        member.name.text,
+        checkTypeIdentifierOrObjectType(member),
+      ),
+    );
+    return membersTable;
+  }
+
+  function checkPropertyTypes(properties: PropertyAssignment[]) {
+    const membersTable = new Map<string, Type>();
+    properties.forEach((property) =>
+      membersTable.set(
+        'text' in property.name
+          ? property.name.text
+          : property.name.value.toString(),
+        checkTypeIdentifierOrObjectType(property),
+      ),
+    );
+    return membersTable;
+  }
+
+  function checkTypeIdentifierOrObjectType(
+    statement: TypeAlias | PropertySignature | PropertyAssignment,
+  ) {
+    return 'typename' in statement
+      ? statement.typename.kind === Node.TypeLiteral
+        ? checkObjecType(statement)
+        : checkType(statement.typename)
+      : checkExpression(statement.init);
+  }
+
+  function handleUnassignableTypes(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+  ) {
+    if (initType.id !== type.id) {
+      error(
+        declaration.init.pos,
+        `Type '${typeToString(
+          initType,
+        )}' is not assignable to type '${typeToString(type)}'.`,
+      );
+    }
+  }
+
+  function handleUnassignablePropertyTypes(
+    declaration: VariableDeclaration,
+    initType: Type,
+    type: Type,
+    propertyName: string,
+  ): boolean {
+    if (initType.id !== type.id) {
+      error(
+        declaration.init.pos,
+        `Type '${typeToString(
+          initType,
+        )}' is not assignable to type '${typeToString(
+          type,
+        )}'. The expected type comes from property '${propertyName}' which is declared here on type '${
+          declaration.typename?.text
+        }'`,
+      );
+      return true;
+    }
+
+    if (initType.id === type.id && initType.id === 'object') {
+      return handlePropertyTypeMismatch(declaration, initType, type);
+    }
+
+    return false;
   }
 
   function handleSubsequentVariableDeclarationsTypes(

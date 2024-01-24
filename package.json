@@ -9,6 +9,7 @@
     "test:file": "tsc && node built/testFile.js",
     "test:parser": "ts-node ./src/testParser",
     "test:binder": "ts-node ./src/testBinder",
+    "test:checker": "ts-node ./src/testChecker",
     "accept": "mv baselines/local/* baselines/reference/",
     "mtsc": "node built/index.js"
   },
